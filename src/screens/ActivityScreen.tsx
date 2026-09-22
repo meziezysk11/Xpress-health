@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Card } from '../components/Card';
 import { Icon } from '../components/Icon';
@@ -12,11 +13,12 @@ import { activityLog, openRequests } from '../state/derive';
 
 export function ActivityScreen() {
   const { state, dispatch, flash } = useApp();
+  const insets = useSafeAreaInsets();
   const requests = openRequests(state);
   const log = activityLog(state);
 
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { paddingTop: insets.top }]}>
       <LinearGradient
         style={styles.header}
         start={gradient160.start}

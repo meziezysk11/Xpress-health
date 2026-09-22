@@ -6,6 +6,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Circle, Defs, RadialGradient, Rect, Stop } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, {
@@ -84,9 +85,10 @@ function HeroBackdrop() {
 
 export function SignInScreen() {
   const { dispatch } = useApp();
+  const insets = useSafeAreaInsets();
 
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { paddingTop: insets.top }]}>
       <View style={styles.hero}>
         <HeroBackdrop />
         <FloatingOrb />
@@ -178,7 +180,6 @@ export function SignInScreen() {
             New here?{' '}
             <Text style={styles.registerLink}>Register as a nurse or HCA</Text>
           </Text>
-          <View style={styles.homeIndicator} />
         </View>
       </View>
     </View>

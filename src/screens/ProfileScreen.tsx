@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Icon } from '../components/Icon';
 import { PressableScale } from '../components/PressableScale';
@@ -18,6 +19,7 @@ interface DocRow {
 
 export function ProfileScreen() {
   const { state, dispatch } = useApp();
+  const insets = useSafeAreaInsets();
 
   const docs: DocRow[] = [
     {
@@ -67,7 +69,7 @@ export function ProfileScreen() {
   const compliancePct = Math.round((okCount / docs.length) * 100);
 
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { paddingTop: insets.top }]}>
       <LinearGradient
         style={styles.header}
         start={gradient160.start}
@@ -182,7 +184,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingHorizontal: 22,
-    paddingTop: 8,
+    paddingTop: 20,
     paddingBottom: 22,
     gap: 17,
     flexShrink: 0,

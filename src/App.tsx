@@ -21,7 +21,6 @@ import { ScheduleScreen } from './screens/ScheduleScreen';
 import { TimesheetScreen } from './screens/TimesheetScreen';
 import { ActivityScreen } from './screens/ActivityScreen';
 import { ProfileScreen } from './screens/ProfileScreen';
-import { StatusBar } from './components/StatusBar';
 import { TabBar } from './components/TabBar';
 import { Toast } from './components/Toast';
 import { colors } from './theme/theme';
@@ -56,7 +55,6 @@ function AppShell() {
 
   return (
     <View style={styles.app}>
-      <StatusBar />
       <View style={styles.content}>{renderScreen(state.screen)}</View>
       {showTabs && <TabBar active={state.screen} />}
       {state.toast != null && <Toast message={state.toast} />}

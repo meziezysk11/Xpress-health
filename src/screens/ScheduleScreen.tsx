@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Card } from '../components/Card';
 import { Icon } from '../components/Icon';
@@ -25,6 +26,7 @@ function dayCell(day: number, booked30: boolean): DayCell {
 
 export function ScheduleScreen() {
   const { state, dispatch } = useApp();
+  const insets = useSafeAreaInsets();
   const upcoming = upcomingEntries(state);
   const booked30 =
     state.accepted.includes('r1') || state.booked.includes('clontarf');
@@ -32,7 +34,7 @@ export function ScheduleScreen() {
   for (let d = 24; d <= 30; d++) days.push(dayCell(d, booked30));
 
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { paddingTop: insets.top }]}>
       <LinearGradient
         style={styles.header}
         start={gradient160.start}
@@ -185,7 +187,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingHorizontal: 22,
-    paddingTop: 6,
+    paddingTop: 20,
     paddingBottom: 18,
     gap: 16,
     flexShrink: 0,

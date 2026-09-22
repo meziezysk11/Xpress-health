@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Card } from '../components/Card';
 import { DotGrid } from '../components/DotGrid';
@@ -23,6 +24,7 @@ import { HOURLY_RATE } from '../data/model';
 
 export function HomeScreen() {
   const { state, dispatch } = useApp();
+  const insets = useSafeAreaInsets();
   const requests = openRequests(state);
   const { extraHours, extraPay } = extraTotals(state);
   const spark = sparkline(state);
@@ -30,7 +32,7 @@ export function HomeScreen() {
   const hours = 36 + extraHours;
 
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { paddingTop: insets.top }]}>
       {/* Navy gradient header */}
       <LinearGradient
         style={styles.header}
@@ -222,7 +224,7 @@ const styles = StyleSheet.create({
     minHeight: 0,
   },
   header: {
-    paddingTop: 6,
+    paddingTop: 20,
     paddingHorizontal: 22,
     paddingBottom: 24,
     gap: 20,

@@ -3,6 +3,8 @@
  * (design-reference/design-source.html). Do not approximate values.
  */
 
+import { StyleSheet } from "react-native";
+
 export const colors = {
   // Navy / ink
   navy950: '#061A38',
@@ -54,6 +56,11 @@ export const colors = {
   // Status
   green: '#0F8A4D',
   red: '#C0392B',
+  overlayWhite16: 'rgba(255,255,255,0.16)',
+  overlayWhite28Border: 'rgba(255,255,255,0.28)',
+  overlayWhite30Border: 'rgba(255,255,255,0.3)',
+  overlayDark45: 'rgba(11,37,71,0.45)',
+
 } as const;
 
 /** Card elevation used across every white surface in the design. */
@@ -92,3 +99,100 @@ export const fonts = {
 
 /** Shared easing from the design: cubic-bezier(.16,.84,.28,1). */
 export const designBezier = [0.16, 0.84, 0.28, 1] as const;
+
+export const spacing = {
+  xxs: 4,
+  xs: 6,
+  sm: 8,
+  smd: 10,
+  md: 12,
+  mdl: 14,
+  lg: 16,
+  lgl: 18,
+  xl: 20,
+  xxl: 22,
+  xxxl: 26,
+};
+
+export const radii = {
+  xs: 7,
+  sm: 9,
+  smd: 10,
+  md: 11,
+  mdl: 12,
+  lg: 13,
+  lgl: 14,
+  xl: 16,
+  xxl: 18,
+  round: 999,
+};
+
+export const buttons = StyleSheet.create({
+  // "Sign in" / default "Clock in" (urgent) — solid, high-emphasis
+  primary: {
+    backgroundColor: colors.blue,
+    borderRadius: radii.lgl,
+    paddingVertical: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  // Urgent variant (not-yet-clocked-in state) uses magenta + a pulse animation
+  // (Reanimated: scale/opacity loop) instead of actionBlue.
+  primaryUrgent: {
+    backgroundColor: colors.berry,
+    borderRadius: radii.lg,
+    paddingVertical: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  // "Clock out" state (already clocked in) — translucent on dark header
+  secondaryOnDark: {
+    backgroundColor: colors.overlayWhite16,
+    borderWidth: 1,
+    borderColor: colors.overlayWhite28Border,
+    borderRadius: radii.lg,
+    paddingVertical: 14,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  // "Directions" — outline button on dark hero
+  ghostOnDark: {
+    borderWidth: 1.5,
+    borderColor: colors.overlayWhite30Border,
+    backgroundColor: colors.overlayDark45,
+    borderRadius: radii.lg,
+    paddingVertical: 14,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  // "Use Face ID" — outline button on white
+  outline: {
+    borderWidth: 1.5,
+    borderColor: colors.borderLight,
+    borderRadius: radii.lgl,
+    paddingVertical: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 9,
+  },
+  outlineLabel: { fontFamily: 'Inter_600SemiBold', fontSize: 15, color: colors.navy800 },
+  // Small pill button ("Reset")
+  pillSmall: {
+    backgroundColor: colors.sky,
+    borderRadius: radii.sm,
+    paddingVertical: 7,
+    paddingHorizontal: 12,
+  },
+  pillSmallLabel: { fontFamily: 'Inter_700Bold', fontSize: 12, color: colors.navy800 },
+  // "Clear filters" pill
+  pillPrimary: {
+    backgroundColor: colors.blue,
+    borderRadius: radii.smd,
+    paddingVertical: 9,
+    paddingHorizontal: 15,
+  },
+  pillPrimaryLabel: { fontFamily: 'Inter_700Bold', fontSize: 13, color: colors.white },
+});

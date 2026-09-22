@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { Card } from '../components/Card';
@@ -10,7 +10,7 @@ import { PressableScale } from '../components/PressableScale';
 import { ProgressRing } from '../components/ProgressRing';
 import { PulseDot } from '../components/PulseDot';
 import { Sparkline } from '../components/Sparkline';
-import { colors, fonts, gradient160 } from '../theme/theme';
+import { buttons, colors, fonts, gradient160 } from '../theme/theme';
 import { useApp } from '../state/AppStateContext';
 import {
   money,
@@ -28,6 +28,7 @@ export function HomeScreen() {
   const spark = sparkline(state);
   const ring = ringProgress(state);
   const hours = 36 + extraHours;
+  const { width } = useWindowDimensions()
 
   return (
     <View style={styles.screen}>
@@ -85,19 +86,19 @@ export function HomeScreen() {
             </View>
           </View>
           <View style={styles.ctaRow}>
-            <ClockInButton />
-            <PressableScale style={styles.directionsBtn}>
+            <ClockInButton width={width} />
+            <PressableScale style={[styles.directionsBtn, styles.ctaBtn, { width: (width - 60) / 2 }]} >
               <Text style={styles.directionsText}>Directions</Text>
             </PressableScale>
           </View>
         </View>
-      </LinearGradient>
+      </LinearGradient >
 
       {/* Scroll body */}
-      <ScrollView
+      < ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false} >
         <View style={styles.statsRow}>
           <Card radius={16} style={styles.statCard}>
             <Text style={styles.statLabel}>Earned this week</Text>
@@ -160,7 +161,7 @@ export function HomeScreen() {
               </View>
               <View style={styles.requestActions}>
                 <PressableScale
-                  style={styles.acceptBtn}
+                  style={[styles.acceptBtn, { width: (width - 80) / 2 }]}
                   onPress={() =>
                     dispatch({
                       type: 'ACCEPT',
@@ -171,7 +172,7 @@ export function HomeScreen() {
                   <Text style={styles.acceptText}>Accept</Text>
                 </PressableScale>
                 <PressableScale
-                  style={styles.declineBtn}
+                  style={[styles.declineBtn, { width: (width - 80) / 2 }]}
                   onPress={() =>
                     dispatch({
                       type: 'DECLINE',
@@ -195,19 +196,19 @@ export function HomeScreen() {
             </Card>
           )}
         </View>
-      </ScrollView>
-    </View>
+      </ScrollView >
+    </View >
   );
 }
 
-function ClockInButton() {
+function ClockInButton({ width }: { width: number }) {
   const { state, dispatch } = useApp();
   const clockedIn = state.clockedIn;
 
   return (
     <PressableScale
       onPress={() => dispatch({ type: 'TOGGLE_CLOCK' })}
-      style={[styles.clockBtn, clockedIn ? styles.clockBtnDone : null]}>
+      style={[buttons.primaryUrgent, styles.ctaBtn, clockedIn ? styles.clockBtnDone : null, { width: (width - 60) / 2 }]}>
       {!clockedIn && <HaloPulse />}
       <Text style={styles.clockBtnText}>
         {clockedIn ? 'Clock out' : 'Clock in'}
@@ -335,6 +336,7 @@ const styles = StyleSheet.create({
   },
   ctaRow: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     gap: 10,
     marginTop: 10,
   },
@@ -357,12 +359,10 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   directionsBtn: {
-    flex: 1,
     borderWidth: 1.5,
     borderColor: 'rgba(255,255,255,0.3)',
     backgroundColor: 'rgba(11,37,71,0.45)',
     borderRadius: 13,
-    paddingVertical: 16,
     alignItems: 'center',
   },
   directionsText: {
@@ -500,6 +500,7 @@ const styles = StyleSheet.create({
   },
   requestActions: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     gap: 9,
   },
   acceptBtn: {
@@ -544,4 +545,8 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     textAlign: 'center',
   },
+  ctaBtn: {
+    paddingVertical: 14,
+    alignItems: 'center',
+  }
 });

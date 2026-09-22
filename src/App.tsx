@@ -79,7 +79,8 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <NativeStatusBar
-        style="dark"
+
+        style="light"
         backgroundColor={colors.navy800}
         translucent={false}
       />

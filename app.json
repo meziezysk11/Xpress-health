@@ -17,7 +17,7 @@
     },
     "android": {
       "package": "com.xpresshealth.app",
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": false
     },
     "web": {
       "bundler": "metro",

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Icon } from '../components/Icon';
 import { PressableScale } from '../components/PressableScale';
@@ -16,12 +17,13 @@ const CREW = [
 
 export function ShiftDetailScreen() {
   const { state, dispatch } = useApp();
+  const insets = useSafeAreaInsets();
   const detail = currentDetail(state);
   const booked = state.booked.includes(detail.id);
   const total = detail.rate * detail.hours;
 
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { paddingTop: insets.top }]}>
       <LinearGradient
         style={styles.header}
         start={gradient160.start}
@@ -138,7 +140,7 @@ export function ShiftDetailScreen() {
         </View>
       </ScrollView>
 
-      <View style={styles.footer}>
+      <View style={[styles.footer, { paddingBottom: Math.max(12, 12 + insets.bottom) }]}>
         <View style={styles.footerRow}>
           <View>
             <Text style={styles.earnLabel}>You'll earn</Text>

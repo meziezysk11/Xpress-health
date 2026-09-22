@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Card } from '../components/Card';
 import { DashedBorder } from '../components/DashedBorder';
@@ -12,11 +13,12 @@ import { money, payableHours } from '../state/derive';
 
 export function TimesheetScreen() {
   const { state, dispatch } = useApp();
+  const insets = useSafeAreaInsets();
   const payable = payableHours(state.breakMin);
   const payTotal = payable * 29;
 
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { paddingTop: insets.top }]}>
       <LinearGradient
         style={styles.header}
         start={gradient160.start}
@@ -142,7 +144,7 @@ export function TimesheetScreen() {
         </View>
       </ScrollView>
 
-      <View style={styles.footer}>
+      <View style={[styles.footer, { paddingBottom: Math.max(12, 12 + insets.bottom) }]}>
         <PressableScale
           onPress={() => {
             if (state.submitted) {
@@ -168,7 +170,6 @@ export function TimesheetScreen() {
         <Text style={styles.footerNote}>
           Submitted before Sunday 23:59 · paid Friday
         </Text>
-        <View style={styles.homeIndicator} />
       </View>
     </View>
   );
@@ -205,7 +206,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 14,
     paddingHorizontal: 22,
-    paddingTop: 8,
+    paddingTop: 20,
     paddingBottom: 20,
     flexShrink: 0,
   },

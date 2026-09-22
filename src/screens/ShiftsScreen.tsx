@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Card } from '../components/Card';
 import { Chip } from '../components/Chip';
@@ -13,10 +14,11 @@ import { Filters } from '../data/model';
 
 export function ShiftsScreen() {
   const { state, dispatch } = useApp();
+  const insets = useSafeAreaInsets();
   const visible = visibleShifts(state);
 
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { paddingTop: insets.top }]}>
       <LinearGradient
         style={styles.header}
         start={gradient160.start}
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingHorizontal: 22,
-    paddingTop: 6,
+    paddingTop: 20,
     paddingBottom: 18,
     gap: 15,
     flexShrink: 0,

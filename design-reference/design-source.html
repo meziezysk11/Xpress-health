@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="0a7e2fd8-5f11-434a-98cc-ec62d53069f9"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <style>/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("5147b11c-da9b-47b6-8c53-8679c835074f") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("8ad1c719-d79f-41f7-b1d2-2b4811e8707c") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("f5c35079-c891-43a9-a726-a6d11b50c151") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("ad138946-277e-434e-8850-e01c7e8fdef3") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("34070ec4-485e-49d0-8df9-3beaa62f5c9d") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("bc7f2da0-6238-48a0-86b6-38366e0be649") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("b8be6f30-fe32-4099-a420-fe23bf9fa411") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("5147b11c-da9b-47b6-8c53-8679c835074f") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("8ad1c719-d79f-41f7-b1d2-2b4811e8707c") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("f5c35079-c891-43a9-a726-a6d11b50c151") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("ad138946-277e-434e-8850-e01c7e8fdef3") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("34070ec4-485e-49d0-8df9-3beaa62f5c9d") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("bc7f2da0-6238-48a0-86b6-38366e0be649") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("b8be6f30-fe32-4099-a420-fe23bf9fa411") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("5147b11c-da9b-47b6-8c53-8679c835074f") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("8ad1c719-d79f-41f7-b1d2-2b4811e8707c") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("f5c35079-c891-43a9-a726-a6d11b50c151") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("ad138946-277e-434e-8850-e01c7e8fdef3") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("34070ec4-485e-49d0-8df9-3beaa62f5c9d") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("bc7f2da0-6238-48a0-86b6-38366e0be649") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("b8be6f30-fe32-4099-a420-fe23bf9fa411") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("5147b11c-da9b-47b6-8c53-8679c835074f") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("8ad1c719-d79f-41f7-b1d2-2b4811e8707c") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("f5c35079-c891-43a9-a726-a6d11b50c151") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("ad138946-277e-434e-8850-e01c7e8fdef3") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("34070ec4-485e-49d0-8df9-3beaa62f5c9d") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("bc7f2da0-6238-48a0-86b6-38366e0be649") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("b8be6f30-fe32-4099-a420-fe23bf9fa411") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("5147b11c-da9b-47b6-8c53-8679c835074f") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("8ad1c719-d79f-41f7-b1d2-2b4811e8707c") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("f5c35079-c891-43a9-a726-a6d11b50c151") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("ad138946-277e-434e-8850-e01c7e8fdef3") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("34070ec4-485e-49d0-8df9-3beaa62f5c9d") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("bc7f2da0-6238-48a0-86b6-38366e0be649") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("b8be6f30-fe32-4099-a420-fe23bf9fa411") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+  <style>/* fallback */
+@font-face {
+  font-family: 'Material Symbols Rounded';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("d93d5af5-2d47-4a71-994d-fddbf5e9d8b1") format('woff2');
+}
+
+.material-symbols-rounded {
+  font-family: 'Material Symbols Rounded';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+</style>
+  <style>
+    body { margin: 0; background: #EDF1F7; font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #015EB8; text-decoration: none; }
+    a:hover { color: #AE2573; }
+    .ms { font-family: "Material Symbols Rounded"; font-weight: normal; font-style: normal; line-height: 1; display: inline-block; white-space: nowrap; -webkit-font-feature-settings: "liga"; -webkit-font-smoothing: antialiased; }
+    @keyframes screenIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    @keyframes livePulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.72); } }
+    @keyframes haloPulse { 0% { box-shadow: 0 0 0 0 rgba(174,37,115,.45); } 70% { box-shadow: 0 0 0 14px rgba(174,37,115,0); } 100% { box-shadow: 0 0 0 0 rgba(174,37,115,0); } }
+    @keyframes floatSlow { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(0,-14px,0) scale(1.06); } }
+    @keyframes toastIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
+    .pscroll { scrollbar-width: none; }
+    .pscroll::-webkit-scrollbar { display: none; }
+  </style>
+</helmet>
+
+<section style="padding:56px 64px 88px;display:flex;gap:60px;align-items:flex-start;flex-wrap:wrap">
+
+  <div style="display:flex;flex-direction:column;gap:20px;width:340px">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="background:#015EB8;color:#fff;font-size:11px;font-weight:700;letter-spacing:.14em;padding:6px 11px;border-radius:6px;align-self:flex-start">INTERACTIVE PROTOTYPE</span>
+      <h1 style="margin:0;font-size:38px;line-height:1.03;font-weight:700;color:#0D2D5E;letter-spacing:-0.035em;text-wrap:pretty">Xpress Health, working</h1>
+      <p style="margin:0;font-size:15.5px;line-height:1.6;color:#5A6E8C;text-wrap:pretty">Tap through it like the real app. The state is live — shifts you book land in your schedule, the filters actually filter, and the break stepper recalculates your pay.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:11px;background:#fff;border-radius:18px;padding:20px;box-shadow:0 0 0 1px rgba(13,45,94,.06),0 1px 2px rgba(13,45,94,.05)">
+      <span style="font-size:11px;font-weight:700;letter-spacing:.11em;color:#5A6E8C;text-transform:uppercase">Try these</span>
+      <span style="font-size:13.5px;color:#0D2D5E;font-weight:500;line-height:1.5">Sign in, then <strong style="font-weight:700">Clock in</strong> on today's shift</span>
+      <span style="font-size:13.5px;color:#0D2D5E;font-weight:500;line-height:1.5">Open <strong style="font-weight:700">Shifts</strong>, toggle the filter chips, book one</span>
+      <span style="font-size:13.5px;color:#0D2D5E;font-weight:500;line-height:1.5">Accept a request — the badge and schedule both update</span>
+      <span style="font-size:13.5px;color:#0D2D5E;font-weight:500;line-height:1.5">In <strong style="font-weight:700">Timesheets</strong>, change the break, then submit</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:11px;background:#0D2D5E;border-radius:16px;padding:15px 17px">
+      <span class="ms" style="font-size:20px;color:#41B6E5">restart_alt</span>
+      <span style="flex:1;font-size:13px;font-weight:600;color:#A9C8E8;line-height:1.4">Reset the prototype to its starting state</span>
+      <span sc-camel-on-click="{{ reset }}" style="cursor:pointer;background:#41B6E5;color:#0D2D5E;font-size:12px;font-weight:700;padding:7px 12px;border-radius:9px">Reset</span>
+    </div>
+  </div>
+
+  <div style="position:relative;width:390px;height:844px;border:6px solid #0B2547;border-radius:50px;overflow:hidden;background:#F4F7FB;display:flex;flex-direction:column;box-shadow:0 40px 72px -34px rgba(13,45,94,.36),0 2px 6px rgba(13,45,94,.05)">
+
+    <sc-if value="{{ isSignIn }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:1;display:flex;flex-direction:column;background:#0D2D5E;animation:screenIn .5s cubic-bezier(.16,.84,.28,1) both">
+        <div style="position:relative;height:330px;flex-shrink:0">
+          <div style="position:absolute;inset:0;background:radial-gradient(130% 95% at 24% 14%,#0A6FCB 0%,#0D2D5E 58%,#061A38 100%);overflow:hidden">
+            <div style="position:absolute;width:300px;height:300px;left:-70px;top:-120px;border-radius:50%;background:radial-gradient(circle,rgba(65,182,229,.34),rgba(65,182,229,0) 70%);animation:floatSlow 11s ease-in-out infinite"></div>
+          </div>
+          <img src="7b46d809-8f13-408e-a5fd-eef4c1d2f2ff" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(11,37,71,.52) 0%,rgba(11,37,71,.7) 50%,rgba(13,45,94,.96) 100%)"></div>
+          <div style="position:absolute;left:26px;right:26px;top:20px;display:flex;align-items:center;justify-content:space-between;color:#fff;font-size:13px;font-weight:600">
+            <span>9:41</span>
+            <div style="width:80px;height:23px;border-radius:12px;background:#0B2547"></div>
+            <span style="display:flex;gap:6px;align-items:center;opacity:.9"><span class="ms" style="font-size:15px">signal_cellular_alt</span><span class="ms" style="font-size:15px">wifi</span><span class="ms" style="font-size:17px">battery_full</span></span>
+          </div>
+          <div style="position:absolute;left:26px;right:26px;top:74px;bottom:32px;display:flex;flex-direction:column;justify-content:space-between">
+            <div style="display:flex;align-items:center;gap:11px">
+              <div style="width:38px;height:38px;border-radius:11px;background:#fff;display:flex;align-items:center;justify-content:center"><span class="ms" style="font-size:23px;color:#015EB8">health_and_safety</span></div>
+              <span style="font-size:13px;font-weight:700;letter-spacing:.16em;color:#41B6E5;text-transform:uppercase">Xpress Health</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <strong style="font-size:31px;font-weight:700;color:#fff;line-height:1.12;letter-spacing:-0.035em;text-wrap:pretty">Your shifts, on your terms</strong>
+              <span style="font-size:13.5px;font-weight:500;color:#A9C8E8;line-height:1.45">Nursing and care work across Ireland — paid every Friday.</span>
+            </div>
+          </div>
+        </div>
+        <div style="flex:1;background:#fff;border-radius:30px 30px 0 0;margin-top:-26px;padding:28px 26px 22px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <span style="font-size:13px;font-weight:600;color:#0D2D5E">Email</span>
+            <div style="border:1.5px solid #DCE5EF;background:#F9FBFD;border-radius:13px;padding:15px;font-size:15px;font-weight:500;color:#0D2D5E">aoife.nolan@gmail.com</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <span style="font-size:13px;font-weight:600;color:#0D2D5E">Password</span>
+            <div style="border:1.5px solid #015EB8;background:#fff;border-radius:13px;padding:15px;font-size:15px;display:flex;align-items:center;justify-content:space-between;color:#0D2D5E">
+              <span style="letter-spacing:.2em">••••••••</span>
+              <span class="ms" style="font-size:20px;color:#5A6E8C">visibility_off</span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div style="display:flex;align-items:center;gap:8px;color:#5A6E8C;font-size:13px;font-weight:500">
+              <span class="ms" style="font-size:19px;color:#015EB8">check_box</span>Keep me signed in
+            </div>
+            <span style="font-size:13px;font-weight:600;color:#AE2573">Forgot?</span>
+          </div>
+          <div sc-camel-on-click="{{ signIn }}" style="cursor:pointer;background:#015EB8;color:#fff;font-size:16px;font-weight:700;text-align:center;padding:16px;border-radius:14px">Sign in</div>
+          <div sc-camel-on-click="{{ signIn }}" style="cursor:pointer;border:1.5px solid #DCE5EF;color:#0D2D5E;font-size:15px;font-weight:600;text-align:center;padding:14px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:9px"><span class="ms" style="font-size:20px;color:#015EB8">fingerprint</span>Use Face ID</div>
+          <div style="margin-top:auto;display:flex;flex-direction:column;gap:12px">
+            <div style="height:1px;background:#EDF2F8"></div>
+            <div style="text-align:center;font-size:13px;color:#5A6E8C;font-weight:500">New here? <span style="color:#AE2573;font-weight:700">Register as a nurse or HCA</span></div>
+            <div style="height:5px;width:126px;border-radius:3px;background:#D5DEEA;margin:2px auto 0"></div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isApp }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;min-height:0;display:flex;flex-direction:column">
+
+        <div style="background:#0D2D5E;color:#fff;padding:0 26px;height:44px;display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:600;flex-shrink:0">
+          <span>9:41</span>
+          <div style="width:80px;height:23px;border-radius:12px;background:#0B2547"></div>
+          <span style="display:flex;gap:6px;align-items:center;opacity:.9"><span class="ms" style="font-size:15px">signal_cellular_alt</span><span class="ms" style="font-size:15px">wifi</span><span class="ms" style="font-size:17px">battery_full</span></span>
+        </div>
+
+        <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;min-height:0;display:flex;flex-direction:column;animation:screenIn .34s cubic-bezier(.16,.84,.28,1) both">
+            <div style="position:relative;overflow:hidden;background:linear-gradient(160deg,#123A72 0%,#0D2D5E 52%,#0B2547 100%);color:#fff;padding:6px 22px 24px;display:flex;flex-direction:column;gap:20px;flex-shrink:0">
+            <svg sc-camel-view-box="0 0 240 80" sc-camel-preserve-aspect-ratio="none" style="position:absolute;right:0;bottom:0;width:210px;height:96px;opacity:.5;pointer-events:none;-webkit-mask-image:radial-gradient(115% 115% at 100% 100%,#000 18%,rgba(0,0,0,0) 70%);mask-image:radial-gradient(115% 115% at 100% 100%,#000 18%,rgba(0,0,0,0) 70%)" aria-hidden="true">
+              <defs><pattern id="dotGrid1" width="14" height="14" sc-camel-pattern-units="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#41B6E5"></circle></pattern></defs>
+              <rect width="240" height="80" fill="url(#dotGrid1)"></rect>
+            </svg>
+
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="display:flex;align-items:center;gap:11px">
+                  <div style="width:38px;height:38px;border-radius:19px;background:#41B6E5;color:#0D2D5E;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700">AN</div>
+                  <div style="display:flex;flex-direction:column">
+                    <span style="font-size:15px;font-weight:700">Aoife Nolan</span>
+                    <span style="font-size:12px;font-weight:500;color:#90AFD1">RGN · Dublin</span>
+                  </div>
+                </div>
+                <div sc-camel-on-click="{{ goActivity }}" style="cursor:pointer;position:relative;display:flex;color:#D3E3F5">
+                  <span class="ms" style="font-size:23px">notifications</span>
+                  <sc-if value="{{ hasRequests }}" hint-placeholder-val="{{ true }}">
+                    <span style="position:absolute;top:-3px;right:-4px;background:#AE2573;color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 3px">{{ requestCount }}</span>
+                  </sc-if>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:15px">
+                <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#41B6E5;text-transform:uppercase">Your next shift</span>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <strong style="font-size:28px;font-weight:700;letter-spacing:-0.038em;line-height:1.1">Beaumont Nursing Home</strong>
+                  <span style="font-size:14.5px;font-weight:500;color:#A9C8E8">Today · 08:00–20:00 · Ward 2B</span>
+                </div>
+                <div style="display:flex;gap:7px">
+                  <span style="background:rgba(65,182,229,.16);border:1px solid rgba(65,182,229,.4);color:#8FD6F2;font-size:11.5px;font-weight:700;padding:5px 9px;border-radius:7px">{{ clockLabel }}</span>
+                  <span style="background:rgba(255,255,255,.12);color:#D3E3F5;font-size:11.5px;font-weight:600;padding:5px 9px;border-radius:7px">€29.00/hr · 11.5h</span>
+                </div>
+                <div style="display:flex;gap:10px">
+                  <div sc-camel-on-click="{{ toggleClock }}" style="{{ clockBtnStyle }}">{{ clockBtnLabel }}</div>
+                  <div style="flex:1;border:1.5px solid rgba(255,255,255,.3);background:rgba(11,37,71,.45);color:#fff;font-size:15px;font-weight:600;text-align:center;padding:14px;border-radius:13px">Directions</div>
+                </div>
+              </div>
+            </div>
+            <div class="pscroll" style="flex:1;min-height:0;overflow-y:auto;padding:20px 22px;display:flex;flex-direction:column;gap:16px">
+              <div style="display:flex;gap:10px">
+                <div style="flex:1;background:#fff;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:4px;box-shadow:0 0 0 1px rgba(13,45,94,.06),0 1px 2px rgba(13,45,94,.05)">
+                  <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#5A6E8C;text-transform:uppercase">Earned this week</span>
+                  <strong style="font-size:22px;font-weight:800;color:#0D2D5E;font-variant-numeric:tabular-nums">{{ earnedLabel }}</strong>
+                  <svg sc-camel-view-box="0 0 92 26" sc-camel-preserve-aspect-ratio="none" style="width:100%;height:22px;margin-top:2px;overflow:visible" aria-hidden="true">
+                    <defs><linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#015EB8" stop-opacity=".22"></stop><stop offset="1" stop-color="#015EB8" stop-opacity="0"></stop></linearGradient></defs>
+                    <path d="{{ sparkArea }}" fill="url(#sparkFill)"></path>
+                    <path d="{{ sparkLine }}" fill="none" stroke="#015EB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <circle cx="{{ sparkDotX }}" cy="{{ sparkDotY }}" r="3" fill="#AE2573"></circle>
+                  </svg>
+                </div>
+                <div style="flex:1;background:#fff;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:4px;box-shadow:0 0 0 1px rgba(13,45,94,.06),0 1px 2px rgba(13,45,94,.05)">
+                  <span style="font-size:11px;font-weight:700;letter-spacing:.09em;color:#5A6E8C;text-transform:uppercase">Hours booked</span>
+                  <strong style="font-size:22px;font-weight:800;color:#0D2D5E;font-variant-numeric:tabular-nums">{{ hoursLabel }}</strong>
+                  <div style="display:flex;align-items:center;gap:10px;margin-top:2px">
+                    <svg sc-camel-view-box="0 0 36 36" style="width:32px;height:32px;flex-shrink:0" aria-hidden="true">
+                      <circle cx="18" cy="18" r="15" fill="none" stroke="#E4EFFA" stroke-width="5"></circle>
+                      <circle cx="18" cy="18" r="15" fill="none" stroke="#41B6E5" stroke-width="5" stroke-linecap="round" stroke-dasharray="94.2" stroke-dashoffset="{{ hoursOffset }}" transform="rotate(-90 18 18)" style="transition:stroke-dashoffset .5s cubic-bezier(.16,.84,.28,1)"></circle>
+                    </svg>
+                    <span style="font-size:11px;font-weight:600;color:#5A6E8C;line-height:1.3;white-space:pre-line">{{ ringLabel }}</span>
+                  </div>
+                </div>
+              </div>
+              <div sc-camel-on-click="{{ goTimesheet }}" style="cursor:pointer;background:#fff;border-radius:18px;padding:15px;display:flex;align-items:center;gap:13px;box-shadow:0 0 0 1px rgba(13,45,94,.06),0 1px 2px rgba(13,45,94,.05)">
+                <div style="width:42px;height:42px;border-radius:12px;background:#FBE9F2;display:flex;align-items:center;justify-content:center;color:#A8347A;flex-shrink:0"><span class="ms" style="font-size:22px">pending_actions</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px">
+                  <strong style="font-size:15px;font-weight:700;color:#0D2D5E">{{ timesheetTitle }}</strong>
+                  <span style="font-size:13px;color:#5A6E8C;font-weight:500">{{ timesheetSub }}</span>
+                </div>
+                <span class="ms" style="font-size:20px;color:#93A3BA">chevron_right</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:11px">
+                <div style="display:flex;align-items:baseline;justify-content:space-between">
+                  <strong style="font-size:16px;font-weight:700;color:#0D2D5E;letter-spacing:-0.01em">Requests for you</strong>
+                  <span style="font-size:13px;font-weight:600;color:#015EB8">{{ requestCountLabel }}</span>
+                </div>
+                <sc-for list="{{ openRequests }}" as="req" hint-placeholder-count="2">
+                  <div style="background:#fff;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px;box-shadow:0 0 0 1px rgba(13,45,94,.06),0 1px 2px rgba(13,45,94,.05)">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+                      <div style="display:flex;flex-direction:column;gap:3px">
+                        <strong style="font-size:15px;font-weight:700;color:#0D2D5E">{{ req.when }}</strong>
+                        <span style="font-size:13px;color:#5A6E8C;font-weight:500">{{ req.sub }}</span>
+                      </div>
+                      <span style="display:flex;align-items:center;gap:5px;background:#FBE9F2;color:#8E1F5D;font-size:11px;font-weight:700;padding:5px 9px;border-radius:7px;white-space:nowrap"><span style="width:5px;height:5px;border-radius:3px;background:#AE2573;animation:livePulse 1.6s ease-in-out infinite"></span>{{ req.left }}</span>
+                    </div>
+                    <div style="display:flex;gap:9px">
+                      <div sc-camel-on-click="{{ req.accept }}" style="cursor:pointer;flex:1;background:#015EB8;color:#fff;font-size:14px;font-weight:700;text-align:center;padding:11px;border-radius:11px">Accept</div>
+                      <div sc-camel-on-click="{{ req.decline }}" style="cursor:pointer;flex:1;border:1.5px solid #DCE5EF;color:#5A6E8C;font-size:14px;font-weight:600;text-align:center;padding:11px;border-radius:11px">Decline</div>
+                    </div>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ noRequests }}" hint-placeholder-val="{{ false }}">
+                  <div style="background:#fff;border-radius:16px;padding:22px 16px;display:flex;flex-direction:column;align-items:center;gap:7px;box-shadow:0 0 0 1px rgba(13,45,94,.06)">
+                    <span class="ms" style="font-size:26px;color:#93A3BA">inbox</span>
+                    <span style="font-size:13.5px;font-weight:600;color:#0D2D5E">All caught up</span>
+                    <span style="font-size:12.5px;color:#5A6E8C;font-weight:500;text-align:center">New requests appear here as homes send them.</span>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isShifts }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;min-height:0;display:flex;flex-direction:column;animation:screenIn .34s cubic-bezier(.16,.84,.28,1) both">
+            <div style="background:linear-gradient(160deg,#123A72,#0B2547);color:#fff;padding:6px 22px 18px;display:flex;flex-direction:column;gap:15px;flex-shrink:0">
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <strong style="font-size:22px;font-weight:700;letter-spacing:-0.028em">Find shifts</strong>
+                <span style="font-size:13px;font-weight:600;color:#41B6E5">Saved searches</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:13px;padding:12px 14px">
+                <span class="ms" style="font-size:19px;color:#A9C8E8">search</span>
+                <span style="font-size:15px;font-weight:500;color:#fff">Dublin</span>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <span sc-camel-on-click="{{ toggleRate }}" style="{{ chipRate }}">€25+/hr</span>
+                <span sc-camel-on-click="{{ toggleNear }}" style="{{ chipNear }}">Within 10 km</span>
+                <span sc-camel-on-click="{{ toggleDays }}" style="{{ chipDays }}">Days only</span>
+              </div>
+            </div>
+            <div style="background:#fff;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;box-shadow:0 1px 0 rgba(13,45,94,.07)">
+              <span style="font-size:13px;font-weight:700;color:#0D2D5E">{{ resultLabel }}</span>
+              <span style="font-size:13px;font-weight:600;color:#015EB8;display:flex;align-items:center;gap:5px">Highest rate <span class="ms" style="font-size:16px">expand_more</span></span>
+            </div>
+            <div class="pscroll" style="flex:1;min-height:0;overflow-y:auto;padding:16px 22px;display:flex;flex-direction:column;gap:12px">
+              <sc-for list="{{ visibleShifts }}" as="sh" hint-placeholder-count="3">
+                <div sc-camel-on-click="{{ sh.open }}" style="cursor:pointer;background:#fff;border-radius:18px;padding:15px;display:flex;flex-direction:column;gap:10px;box-shadow:0 0 0 1px rgba(13,45,94,.06),0 1px 2px rgba(13,45,94,.05)">
+                  <div style="display:flex;justify-content:space-between;gap:10px">
+                    <div style="display:flex;flex-direction:column;gap:4px">
+                      <span style="font-size:11px;font-weight:700;letter-spacing:.1em;color:#015EB8;text-transform:uppercase">{{ sh.role }}</span>
+                      <strong style="font-size:16px;font-weight:700;color:#0D2D5E;letter-spacing:-0.01em">{{ sh.place }}</strong>
+                      <span style="font-size:13px;color:#5A6E8C;font-weight:500">{{ sh.meta }}</span>
+                    </div>
+                    <div style="text-align:right">
+                      <strong style="font-size:22px;font-weight:800;color:#AE2573;font-variant-numeric:tabular-nums">{{ sh.rateLabel }}</strong>
+                      <div style="font-size:11px;font-weight:600;color:#5A6E8C">per hour</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;align-items:center">
+                    <span style="background:#E4EFFA;color:#014A93;font-size:11px;font-weight:700;padding:5px 9px;border-radius:7px">{{ sh.tag }}</span>
+                    <span style="font-size:14px;font-weight:700;color:#015EB8">{{ sh.cta }}</span>
+                  </div>
+                </div>
+              </sc-for>
+              <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#fff;border-radius:18px;padding:28px 18px;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:0 0 0 1px rgba(13,45,94,.06)">
+                  <span class="ms" style="font-size:28px;color:#93A3BA">filter_alt_off</span>
+                  <strong style="font-size:14.5px;font-weight:700;color:#0D2D5E">No shifts match those filters</strong>
+                  <span style="font-size:12.5px;color:#5A6E8C;font-weight:500;text-align:center;line-height:1.45">Loosen a filter above to see more of the 24 shifts near you.</span>
+                  <span sc-camel-on-click="{{ clearFilters }}" style="cursor:pointer;margin-top:4px;background:#015EB8;color:#fff;font-size:13px;font-weight:700;padding:9px 15px;border-radius:10px">Clear filters</span>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;min-height:0;display:flex;flex-direction:column;background:#fff;animation:screenIn .34s cubic-bezier(.16,.84,.28,1) both">
+            <div style="background:linear-gradient(160deg,#123A72,#0B2547);color:#fff;padding:6px 22px 22px;display:flex;flex-direction:column;gap:18px;flex-shrink:0">
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <span sc-camel-on-click="{{ goShifts }}" class="ms" style="cursor:pointer;font-size:24px">arrow_back</span>
+                <span style="display:flex;gap:16px;color:#D3E3F5"><span class="ms" style="font-size:23px">bookmark_border</span><span class="ms" style="font-size:23px">share</span></span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <span style="font-size:11px;font-weight:700;letter-spacing:.12em;color:#41B6E5;text-transform:uppercase">{{ detail.role }}</span>
+                <strong style="font-size:27px;font-weight:700;letter-spacing:-0.035em;line-height:1.15">{{ detail.place }}</strong>
+                <span style="font-size:14px;font-weight:500;color:#A9C8E8;display:flex;align-items:center;gap:6px"><span class="ms" style="font-size:17px">location_on</span>{{ detail.address }}</span>
+              </div>
+              <div style="display:flex;gap:20px;background:rgba(255,255,255,.12);border-radius:16px;padding:14px 17px">
+                <div style="display:flex;flex-direction:column;gap:3px">
+                  <span style="font-size:11px;font-weight:600;color:#A9C8E8;letter-spacing:.08em;text-transform:uppercase">Rate</span>
+                  <strong style="font-size:18px;font-weight:800;font-variant-numeric:tabular-nums">{{ detail.rateFull }}</strong>
+                </div>
+                <div style="width:1px;background:rgba(255,255,255,.2)"></div>
+                <div style="display:flex;flex-direction:column;gap:3px">
+                  <span style="font-size:11px;font-weight:600;color:#A9C8E8;letter-spacing:.08em;text-transform:uppercase">Hours</span>
+                  <strong style="font-size:18px;font-weight:800;font-variant-numeric:tabular-nums">{{ detail.hours }}</strong>
+                </div>
+                <div style="width:1px;background:rgba(255,255,255,.2)"></div>
+                <div style="display:flex;flex-direction:column;gap:3px">
+                  <span style="font-size:11px;font-weight:600;color:#41B6E5;letter-spacing:.08em;text-transform:uppercase">Est. total</span>
+                  <strong style="font-size:18px;font-weight:800;font-variant-numeric:tabular-nums">{{ detail.total }}</strong>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:#A9C8E8">
+                <span class="ms" style="font-size:15px;color:#41B6E5">verified_user</span>
+                <span>Instant confirm · free cancel 48h · consultant Sinéad Byrne</span>
+              </div>
+            </div>
+            <div class="pscroll" style="flex:1;min-height:0;overflow-y:auto;padding:18px 22px;display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;flex-direction:column;gap:11px">
+                <strong style="font-size:16px;font-weight:700;color:#0D2D5E;letter-spacing:-0.01em">Shift details</strong>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <span class="ms" style="font-size:20px;color:#015EB8">event</span>
+                  <span style="font-size:14px;color:#0D2D5E;font-weight:500">{{ detail.dateLine }}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <span class="ms" style="font-size:20px;color:#015EB8">bed</span>
+                  <span style="font-size:14px;color:#0D2D5E;font-weight:500">{{ detail.ward }}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <span class="ms" style="font-size:20px;color:#015EB8">restaurant</span>
+                  <span style="font-size:14px;color:#0D2D5E;font-weight:500">Unpaid 30 min break · parking on site</span>
+                </div>
+              </div>
+              <div style="height:1px;background:#DCE5EF"></div>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <strong style="font-size:16px;font-weight:700;color:#0D2D5E;letter-spacing:-0.01em">Required to attend</strong>
+                <div style="display:flex;flex-wrap:wrap;gap:8px">
+                  <span style="background:#E4EFFA;color:#014A93;font-size:12px;font-weight:600;padding:7px 11px;border-radius:9px;display:flex;align-items:center;gap:5px"><span class="ms" style="font-size:15px">check_circle</span>NMBI pin</span>
+                  <span style="background:#E4EFFA;color:#014A93;font-size:12px;font-weight:600;padding:7px 11px;border-radius:9px;display:flex;align-items:center;gap:5px"><span class="ms" style="font-size:15px">check_circle</span>Manual handling</span>
+                  <span style="background:#FBE9F2;color:#8E1F5D;font-size:12px;font-weight:600;padding:7px 11px;border-radius:9px;display:flex;align-items:center;gap:5px"><span class="ms" style="font-size:15px">error</span>Garda vetting expires soon</span>
+                </div>
+              </div>
+              <div style="height:1px;background:#DCE5EF"></div>
+              <div style="display:flex;flex-direction:column;gap:11px">
+                <strong style="font-size:16px;font-weight:700;color:#0D2D5E;letter-spacing:-0.01em">Who you'll work with</strong>
+                <div style="display:flex;gap:8px">
+                  <div style="flex:1;min-width:0;display:flex;align-items:center;gap:7px">
+                    <div style="width:32px;height:32px;border-radius:10px;flex-shrink:0;background:#E4EFFA;color:#014A93;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700">SB</div>
+                    <div style="min-width:0;display:flex;flex-direction:column"><strong style="font-size:11.5px;font-weight:700;color:#0D2D5E">S. Byrne</strong><span style="font-size:10.5px;color:#5A6E8C;font-weight:500">Manager</span></div>
+                  </div>
+                  <div style="flex:1;min-width:0;display:flex;align-items:center;gap:7px">
+                    <div style="width:32px;height:32px;border-radius:10px;flex-shrink:0;background:#E4EFFA;color:#014A93;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700">MK</div>
+                    <div style="min-width:0;display:flex;flex-direction:column"><strong style="font-size:11.5px;font-weight:700;color:#0D2D5E">Dr Kelly</strong><span style="font-size:10.5px;color:#5A6E8C;font-weight:500">GP</span></div>
+                  </div>
+                  <div style="flex:1;min-width:0;display:flex;align-items:center;gap:7px">
+                    <div style="width:32px;height:32px;border-radius:10px;flex-shrink:0;background:#E4EFFA;color:#014A93;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700">JO</div>
+                    <div style="min-width:0;display:flex;flex-direction:column"><strong style="font-size:11.5px;font-weight:700;color:#0D2D5E">J. Okafor</strong><span style="font-size:10.5px;color:#5A6E8C;font-weight:500">HCA</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:14px 22px 12px;display:flex;flex-direction:column;gap:12px;flex-shrink:0;box-shadow:0 -1px 0 rgba(13,45,94,.07)">
+              <div style="display:flex;align-items:center;gap:14px">
+                <div style="display:flex;flex-direction:column">
+                  <span style="font-size:11px;font-weight:700;color:#5A6E8C;text-transform:uppercase;letter-spacing:.09em">You'll earn</span>
+                  <strong style="font-size:21px;font-weight:800;color:#AE2573;font-variant-numeric:tabular-nums">{{ detail.total }}</strong>
+                </div>
+                <div sc-camel-on-click="{{ bookDetail }}" style="{{ bookBtnStyle }}">{{ bookBtnLabel }}</div>
+              </div>
+              <div style="height:5px;width:126px;border-radius:3px;background:#D5DEEA;margin:0 auto"></div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isSchedule }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;min-height:0;display:flex;flex-direction:column;animation:screenIn .34s cubic-bezier(.16,.84,.28,1) both">
+            <div style="background:linear-gradient(160deg,#123A72,#0B2547);color:#fff;padding:6px 22px 18px;display:flex;flex-direction:column;gap:16px;flex-shrink:0">
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <strong style="font-size:22px;font-weight:700;letter-spacing:-0.028em">August 2026</strong>
+                <div style="display:flex;gap:8px;color:#A9C8E8"><span class="ms" style="font-size:22px">chevron_left</span><span class="ms" style="font-size:22px">chevron_right</span></div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center">
+                <span style="font-size:11px;font-weight:600;color:#90AFD1">M</span><span style="font-size:11px;font-weight:600;color:#90AFD1">T</span><span style="font-size:11px;font-weight:600;color:#90AFD1">W</span><span style="font-size:11px;font-weight:600;color:#90AFD1">T</span><span style="font-size:11px;font-weight:600;color:#90AFD1">F</span><span style="font-size:11px;font-weight:600;color:#90AFD1">S</span><span style="font-size:11px;font-weight:600;color:#90AFD1">S</span>
+                <div style="padding:9px 0;font-size:14px;font-weight:500;color:#D3E3F5">24</div>
+                <div style="padding:9px 0;font-size:14px;font-weight:500;color:#D3E3F5">25</div>
+                <div style="padding:9px 0;font-size:14px;font-weight:700;color:#0D2D5E;background:#41B6E5;border-radius:11px">26</div>
+                <div style="padding:9px 0;font-size:14px;font-weight:600;color:#fff;background:#015EB8;border-radius:11px">27</div>
+                <div style="padding:9px 0;font-size:14px;font-weight:500;color:#D3E3F5">28</div>
+                <div style="padding:9px 0;font-size:14px;font-weight:600;color:#fff;background:#015EB8;border-radius:11px">29</div>
+                <div style="padding:9px 0;font-size:14px;font-weight:600;color:{{ day30Color }};background:{{ day30Bg }};border-radius:11px">30</div>
+              </div>
+            </div>
+            <div class="pscroll" style="flex:1;min-height:0;overflow-y:auto;padding:18px 22px;display:flex;flex-direction:column;gap:15px">
+              <div style="display:flex;flex-direction:column;gap:11px">
+                <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#5A6E8C;text-transform:uppercase">Today</span>
+                <div style="background:#015EB8;color:#fff;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px">
+                  <div style="display:flex;justify-content:space-between;gap:10px">
+                    <div style="display:flex;flex-direction:column;gap:4px">
+                      <strong style="font-size:16px;font-weight:700">Beaumont Nursing Home</strong>
+                      <span style="font-size:13px;color:#BFD8F0;font-weight:500">08:00–20:00 · Ward 2B</span>
+                    </div>
+                    <span style="{{ todayBadgeStyle }}">{{ todayBadge }}</span>
+                  </div>
+                  <div sc-camel-on-click="{{ toggleClock }}" style="cursor:pointer;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.24);border-radius:12px;padding:12px;text-align:center;font-size:14px;font-weight:700">{{ clockBtnLabel }}</div>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:11px">
+                <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#5A6E8C;text-transform:uppercase">Upcoming</span>
+                <sc-for list="{{ upcoming }}" as="up" hint-placeholder-count="3">
+                  <div style="{{ up.cardStyle }}">
+                    <div style="width:46px;text-align:center;flex-shrink:0">
+                      <div style="font-size:11px;font-weight:600;color:{{ up.dayColor }}">{{ up.dow }}</div>
+                      <div style="font-size:20px;font-weight:700;color:{{ up.numColor }}">{{ up.day }}</div>
+                    </div>
+                    <div style="flex:1;display:flex;flex-direction:column;gap:3px;border-left:1px solid {{ up.rule }};padding-left:13px">
+                      <strong style="font-size:15px;font-weight:700;color:{{ up.numColor }}">{{ up.place }}</strong>
+                      <span style="font-size:13px;color:{{ up.subColor }};font-weight:500">{{ up.sub }}</span>
+                    </div>
+                    <span class="ms" style="font-size:20px;color:#93A3BA">chevron_right</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isTimesheet }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;min-height:0;display:flex;flex-direction:column;animation:screenIn .34s cubic-bezier(.16,.84,.28,1) both">
+            <div style="background:linear-gradient(160deg,#123A72,#0B2547);color:#fff;padding:8px 22px 20px;display:flex;align-items:center;gap:14px;flex-shrink:0">
+              <span sc-camel-on-click="{{ goHome }}" class="ms" style="cursor:pointer;font-size:24px">arrow_back</span>
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <strong style="font-size:19px;font-weight:700;letter-spacing:-0.028em">Submit timesheet</strong>
+                <span style="font-size:13px;color:#A9C8E8;font-weight:500">Beaumont · Mon 24 Aug</span>
+              </div>
+            </div>
+            <div class="pscroll" style="flex:1;min-height:0;overflow-y:auto;padding:18px 22px;display:flex;flex-direction:column;gap:16px">
+              <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#E4EFFA;border-radius:18px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:9px">
+                  <span class="ms" style="font-size:30px;color:#015EB8">task_alt</span>
+                  <strong style="font-size:16px;font-weight:700;color:#0D2D5E">Timesheet submitted</strong>
+                  <span style="font-size:13px;color:#014A93;font-weight:500;text-align:center;line-height:1.45">Sent to S. Byrne for approval. {{ payLabel }} lands Friday 4 Sep.</span>
+                </div>
+              </sc-if>
+              <div style="background:#fff;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:15px;box-shadow:0 0 0 1px rgba(13,45,94,.06),0 1px 2px rgba(13,45,94,.05)">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <div style="display:flex;flex-direction:column;gap:4px">
+                    <span style="font-size:12px;font-weight:700;color:#5A6E8C;text-transform:uppercase;letter-spacing:.09em">Clocked in</span>
+                    <strong style="font-size:26px;font-weight:800;color:#0D2D5E;font-variant-numeric:tabular-nums">07:58</strong>
+                  </div>
+                  <span class="ms" style="font-size:22px;color:#93A3BA">arrow_forward</span>
+                  <div style="display:flex;flex-direction:column;gap:4px;text-align:right">
+                    <span style="font-size:12px;font-weight:700;color:#5A6E8C;text-transform:uppercase;letter-spacing:.09em">Clocked out</span>
+                    <strong style="font-size:26px;font-weight:800;color:#0D2D5E;font-variant-numeric:tabular-nums">20:06</strong>
+                  </div>
+                </div>
+                <div style="height:1px;background:#EDF2F8"></div>
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <span style="font-size:14px;font-weight:500;color:#3C5573">Unpaid break</span>
+                  <div style="display:flex;align-items:center;gap:10px">
+                    <div sc-camel-on-click="{{ breakDown }}" style="cursor:pointer;width:32px;height:32px;border:1.5px solid #DCE5EF;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#5A6E8C"><span class="ms" style="font-size:17px">remove</span></div>
+                    <strong style="font-size:15px;font-weight:700;color:#0D2D5E;font-variant-numeric:tabular-nums;min-width:52px;text-align:center">{{ breakLabel }}</strong>
+                    <div sc-camel-on-click="{{ breakUp }}" style="cursor:pointer;width:32px;height:32px;background:#E4EFFA;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#015EB8"><span class="ms" style="font-size:17px">add</span></div>
+                  </div>
+                </div>
+                <div style="background:#F4F7FB;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:9px">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline">
+                    <span style="font-size:13px;font-weight:500;color:#3C5573">Payable hours · {{ payableHours }} @ €29.00</span>
+                    <strong style="font-size:14px;font-weight:600;color:#0D2D5E;font-variant-numeric:tabular-nums">{{ payLabel }}</strong>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;align-items:baseline">
+                    <span style="font-size:13px;font-weight:500;color:#3C5573">Unsocial hours uplift</span>
+                    <strong style="font-size:14px;font-weight:600;color:#0D2D5E;font-variant-numeric:tabular-nums">€0.00</strong>
+                  </div>
+                  <div style="height:1px;background:#DCE5EF"></div>
+                  <div style="display:flex;justify-content:space-between;align-items:baseline">
+                    <span style="font-size:12px;font-weight:700;color:#A8347A;text-transform:uppercase;letter-spacing:.09em">Est. gross pay</span>
+                    <strong style="font-size:20px;font-weight:800;color:#AE2573;font-variant-numeric:tabular-nums">{{ payLabel }}</strong>
+                  </div>
+                  <span style="font-size:12px;color:#5A6E8C;font-weight:500">Ref TS-24081 · paid Friday 4 Sep</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <span style="font-size:13px;font-weight:700;color:#0D2D5E">Notes for the ward manager</span>
+                <div style="background:#fff;border:1.5px solid #DCE5EF;border-radius:14px;padding:13px;font-size:14px;color:#93A3BA;font-weight:500;min-height:46px">Optional — handover notes, overtime reason…</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <span style="font-size:13px;font-weight:700;color:#0D2D5E">Manager signature</span>
+                <div sc-camel-on-click="{{ sign }}" style="cursor:pointer;background:#fff;border:1.5px dashed {{ signBorder }};border-radius:14px;height:84px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#5A6E8C">
+                  <span class="ms" style="font-size:24px;color:#015EB8">{{ signIcon }}</span>
+                  <span style="font-size:13px;font-weight:600">{{ signLabel }}</span>
+                </div>
+              </div>
+            </div>
+            <div style="background:#fff;padding:14px 22px 12px;display:flex;flex-direction:column;gap:9px;flex-shrink:0;box-shadow:0 -1px 0 rgba(13,45,94,.07)">
+              <div sc-camel-on-click="{{ submit }}" style="{{ submitBtnStyle }}">{{ submitBtnLabel }}</div>
+              <span style="text-align:center;font-size:12px;color:#5A6E8C;font-weight:500">Submitted before Sunday 23:59 · paid Friday</span>
+              <div style="height:5px;width:126px;border-radius:3px;background:#D5DEEA;margin:0 auto"></div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isActivity }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;min-height:0;display:flex;flex-direction:column;animation:screenIn .34s cubic-bezier(.16,.84,.28,1) both">
+            <div style="background:linear-gradient(160deg,#123A72,#0B2547);color:#fff;padding:6px 22px 0;display:flex;flex-direction:column;gap:13px;flex-shrink:0">
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <strong style="font-size:22px;font-weight:700;letter-spacing:-0.028em">Activity</strong>
+                <span sc-camel-on-click="{{ markRead }}" style="cursor:pointer;font-size:13px;font-weight:600;color:#41B6E5">Mark all read</span>
+              </div>
+              <div style="display:flex;gap:22px">
+                <div style="padding-bottom:11px;border-bottom:3px solid #41B6E5;font-size:14px;font-weight:700;color:#fff">{{ requestTabLabel }}</div>
+                <div style="padding-bottom:11px;font-size:14px;font-weight:600;color:#90AFD1">Updates</div>
+              </div>
+            </div>
+            <div class="pscroll" style="flex:1;min-height:0;overflow-y:auto;padding:16px 22px;display:flex;flex-direction:column;gap:12px">
+              <sc-for list="{{ openRequests }}" as="req" hint-placeholder-count="2">
+                <div style="background:#fff;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 0 0 1px rgba(13,45,94,.06),0 1px 2px rgba(13,45,94,.05)">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+                    <div style="display:flex;flex-direction:column;gap:4px">
+                      <span style="font-size:11px;font-weight:700;letter-spacing:.1em;color:#015EB8;text-transform:uppercase">Shift request</span>
+                      <strong style="font-size:16px;font-weight:700;color:#0D2D5E;letter-spacing:-0.01em">{{ req.place }}</strong>
+                      <span style="font-size:13px;color:#5A6E8C;font-weight:500">{{ req.full }}</span>
+                    </div>
+                    <span style="display:flex;align-items:center;gap:5px;background:#FBE9F2;color:#8E1F5D;font-size:11px;font-weight:700;padding:5px 9px;border-radius:7px;white-space:nowrap"><span style="width:5px;height:5px;border-radius:3px;background:#AE2573;animation:livePulse 1.6s ease-in-out infinite"></span>{{ req.left }}</span>
+                  </div>
+                  <div style="display:flex;gap:9px">
+                    <div sc-camel-on-click="{{ req.accept }}" style="cursor:pointer;flex:1;background:#015EB8;color:#fff;font-size:14px;font-weight:700;text-align:center;padding:12px;border-radius:11px">Accept</div>
+                    <div sc-camel-on-click="{{ req.decline }}" style="cursor:pointer;flex:1;border:1.5px solid #DCE5EF;color:#5A6E8C;font-size:14px;font-weight:600;text-align:center;padding:12px;border-radius:11px">Decline</div>
+                  </div>
+                </div>
+              </sc-for>
+              <div style="display:flex;flex-direction:column;gap:12px;padding-top:4px">
+                <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#5A6E8C;text-transform:uppercase">Earlier</span>
+                <sc-for list="{{ activityLog }}" as="ev" hint-placeholder-count="3">
+                  <div style="display:flex;gap:12px;align-items:flex-start">
+                    <div style="width:34px;height:34px;border-radius:11px;background:{{ ev.bg }};display:flex;align-items:center;justify-content:center;color:{{ ev.fg }};flex-shrink:0"><span class="ms" style="font-size:19px">{{ ev.icon }}</span></div>
+                    <div style="display:flex;flex-direction:column;gap:2px">
+                      <span style="font-size:14px;font-weight:600;color:#0D2D5E">{{ ev.title }}</span>
+                      <span style="font-size:12.5px;color:#5A6E8C;font-weight:500">{{ ev.sub }}</span>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;min-height:0;display:flex;flex-direction:column;animation:screenIn .34s cubic-bezier(.16,.84,.28,1) both">
+            <div style="background:linear-gradient(160deg,#123A72,#0B2547);color:#fff;padding:8px 22px 22px;display:flex;flex-direction:column;gap:17px;flex-shrink:0">
+              <div style="display:flex;align-items:center;gap:14px">
+                <div style="width:62px;height:62px;border-radius:31px;background:#41B6E5;color:#0D2D5E;display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:700;flex-shrink:0">AN</div>
+                <div style="display:flex;flex-direction:column;gap:3px">
+                  <strong style="font-size:20px;font-weight:700;letter-spacing:-0.028em">Aoife Nolan</strong>
+                  <span style="font-size:13px;font-weight:500;color:#A9C8E8">Staff Nurse (RGN) · NMBI 148230</span>
+                </div>
+              </div>
+              <div style="background:rgba(255,255,255,.12);border-radius:16px;padding:15px;display:flex;flex-direction:column;gap:10px">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <span style="font-size:13px;font-weight:600;color:#DCEAF8">{{ complianceLabel }}</span>
+                  <span style="font-size:13px;font-weight:700;color:#41B6E5">{{ compliancePct }}</span>
+                </div>
+                <div style="height:7px;background:rgba(255,255,255,.2);border-radius:4px;overflow:hidden">
+                  <div style="width:{{ compliancePct }};height:100%;background:linear-gradient(90deg,#015EB8,#41B6E5);border-radius:4px;transition:width .5s cubic-bezier(.16,.84,.28,1)"></div>
+                </div>
+              </div>
+            </div>
+            <div class="pscroll" style="flex:1;min-height:0;overflow-y:auto;padding:18px 22px;display:flex;flex-direction:column;gap:13px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between">
+                <strong style="font-size:16px;font-weight:700;color:#0D2D5E;letter-spacing:-0.01em">Documents</strong>
+                <span style="font-size:13px;font-weight:600;color:#015EB8">Upload</span>
+              </div>
+              <div style="background:#FBE9F2;border-radius:16px;padding:15px;display:flex;align-items:center;gap:12px">
+                <span class="ms" style="font-size:22px;color:#A8347A">warning</span>
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px">
+                  <strong style="font-size:14px;font-weight:700;color:#8E1F5D">Garda vetting expires in 12 days</strong>
+                  <span style="font-size:12.5px;color:#A8347A;font-weight:500">Renew now to keep booking shifts</span>
+                </div>
+              </div>
+              <div style="background:#fff;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 0 0 1px rgba(13,45,94,.06),0 1px 2px rgba(13,45,94,.05)">
+                <sc-for list="{{ documents }}" as="doc" hint-placeholder-count="4">
+                  <div style="padding:14px 15px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #EDF2F8">
+                    <span class="ms" style="font-size:20px;color:{{ doc.color }}">{{ doc.icon }}</span>
+                    <div style="flex:1;display:flex;flex-direction:column;gap:1px">
+                      <strong style="font-size:14px;font-weight:600;color:#0D2D5E">{{ doc.name }}</strong>
+                      <span style="font-size:12.5px;color:{{ doc.subColor }};font-weight:500">{{ doc.status }}</span>
+                    </div>
+                    <sc-if value="{{ doc.missing }}" hint-placeholder-val="{{ false }}">
+                      <span sc-camel-on-click="{{ doc.add }}" style="cursor:pointer;background:#015EB8;color:#fff;font-size:12px;font-weight:700;padding:6px 11px;border-radius:8px">Add</span>
+                    </sc-if>
+                    <sc-if value="{{ doc.ok }}" hint-placeholder-val="{{ true }}">
+                      <span class="ms" style="font-size:19px;color:#93A3BA">chevron_right</span>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="background:#0D2D5E;border-radius:18px;padding:16px;display:flex;align-items:center;gap:13px">
+                <div style="width:40px;height:40px;border-radius:12px;background:#AE2573;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0"><span class="ms" style="font-size:22px">group_add</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:2px">
+                  <strong style="font-size:14.5px;font-weight:700;color:#fff">Refer a colleague, earn €250</strong>
+                  <span style="font-size:12.5px;color:#A9C8E8;font-weight:500">Paid after their first 10 shifts</span>
+                </div>
+                <span class="ms" style="font-size:20px;color:#A9C8E8">chevron_right</span>
+              </div>
+              <div sc-camel-on-click="{{ signOut }}" style="cursor:pointer;text-align:center;font-size:13.5px;font-weight:600;color:#5A6E8C;padding:8px">Sign out</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ showTabs }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fff;padding:11px 16px 12px;display:grid;grid-template-columns:repeat(5,1fr);flex-shrink:0;box-shadow:0 -1px 0 rgba(13,45,94,.07)">
+            <div sc-camel-on-click="{{ goHome }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;color:{{ tabHome }}"><span class="ms" style="font-size:24px">home</span><span style="font-size:10px;font-weight:600;letter-spacing:.02em">Home</span></div>
+            <div sc-camel-on-click="{{ goShifts }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;color:{{ tabShifts }}"><span class="ms" style="font-size:24px">search</span><span style="font-size:10px;font-weight:600;letter-spacing:.02em">Shifts</span></div>
+            <div sc-camel-on-click="{{ goSchedule }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;color:{{ tabSchedule }}"><span class="ms" style="font-size:24px">calendar_month</span><span style="font-size:10px;font-weight:600;letter-spacing:.02em">Schedule</span></div>
+            <div sc-camel-on-click="{{ goTimesheet }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;color:{{ tabTimesheet }}"><span class="ms" style="font-size:24px">receipt_long</span><span style="font-size:10px;font-weight:600;letter-spacing:.02em">Timesheets</span></div>
+            <div sc-camel-on-click="{{ goProfile }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;color:{{ tabProfile }}"><span class="ms" style="font-size:24px">person</span><span style="font-size:10px;font-weight:600;letter-spacing:.02em">Profile</span></div>
+            <div style="grid-column:1/-1;height:5px;width:126px;border-radius:3px;background:#D5DEEA;margin:11px auto 0"></div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;left:22px;right:22px;bottom:110px;background:#0B2547;color:#fff;border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:11px;box-shadow:0 12px 30px -10px rgba(11,37,71,.6);animation:toastIn .32s cubic-bezier(.16,.84,.28,1) both">
+        <span class="ms" style="font-size:20px;color:#41B6E5">check_circle</span>
+        <span style="flex:1;font-size:13.5px;font-weight:600;line-height:1.35">{{ toast }}</span>
+      </div>
+    </sc-if>
+
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1100,&quot;height&quot;:1000}}">
+const SHIFTS = [
+  { id: 'clontarf', role: 'Staff Nurse', place: 'Clontarf Care Centre', address: 'Clontarf Road, Dublin 3 · 3.1 km', rate: 31, hours: 11.5, km: 3.1, night: false, tag: 'Premium rate', dow: 'SAT', day: '30', dateLine: 'Saturday 30 August · 08:00 – 20:00', ward: 'Ward 1A · 24 residents · general care', when: 'Sat 30 Aug · 08:00–20:00' },
+  { id: 'beaumont', role: 'Staff Nurse · RGN', place: 'Beaumont Nursing Home', address: 'Beaumont Road, Dublin 9 · 4.2 km', rate: 29, hours: 11.5, km: 4.2, night: false, tag: 'Worked here 6×', dow: 'THU', day: '27', dateLine: 'Thursday 27 August · 08:00 – 20:00', ward: 'Ward 2B · 28 residents · dementia care', when: 'Thu 27 Aug · 08:00–20:00' },
+  { id: 'marymount', role: 'Health Care Assistant', place: 'Marymount Residential', address: 'Marymount Ave, Dublin 12 · 6.4 km', rate: 23, hours: 11.5, km: 6.4, night: true, tag: 'Night', dow: 'SUN', day: '31', dateLine: 'Sunday 31 August · 20:00 – 08:00', ward: 'Night cover · 18 residents', when: 'Sun 31 Aug · 20:00–08:00' },
+  { id: 'ashbrook', role: 'Staff Nurse', place: 'Ashbrook Private', address: 'Ashbrook Grove, Dublin 15 · 9.7 km', rate: 27, hours: 11.5, km: 9.7, night: false, tag: 'New home', dow: 'TUE', day: '02', dateLine: 'Tuesday 2 September · 08:00 – 20:00', ward: 'Ward 3 · 20 residents · palliative', when: 'Tue 2 Sep · 08:00–20:00' },
+  { id: 'stbrigids', role: 'Health Care Assistant', place: "St Brigid's Community Unit", address: 'Blanchardstown, Dublin 15 · 12.4 km', rate: 21, hours: 12, km: 12.4, night: true, tag: 'Night', dow: 'SAT', day: '29', dateLine: 'Saturday 29 August · 20:00 – 08:00', ward: 'Night cover · 22 residents', when: 'Sat 29 Aug · 20:00–08:00' }
+];
+
+const REQUESTS = [
+  { id: 'r1', place: 'Clontarf Care Centre', when: 'Sat 30 Aug · 08:00–20:00', sub: 'Clontarf Care Centre · €31/hr', full: 'Sat 30 Aug · 08:00–20:00 · €31/hr', left: '2h left', dow: 'SAT', day: '30', rate: 31, hours: 11.5 },
+  { id: 'r2', place: 'Marymount Residential', when: 'Mon 1 Sep · 20:00–08:00', sub: 'Marymount Residential · €23/hr', full: 'Mon 1 Sep · 20:00–08:00 · €23/hr', left: '1d left', dow: 'MON', day: '01', rate: 23, hours: 11.5 }
+];
+
+const START = {
+  signedIn: false, screen: 'home', detailId: 'beaumont',
+  filters: { rate: true, near: true, days: true },
+  booked: [], accepted: [], declined: [],
+  clockedIn: false, breakMin: 30, signed: false, submitted: false,
+  ohAdded: false, toast: null
+};
+
+class Component extends DCLogic {
+  state = Object.assign({}, START, { filters: Object.assign({}, START.filters), booked: [], accepted: [], declined: [] });
+
+  componentWillUnmount() { clearTimeout(this._t); }
+
+  flash(msg) {
+    this.setState({ toast: msg });
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ toast: null }), 2600);
+  }
+
+  go(screen) { this.setState({ screen: screen }); }
+
+  money(n) { return '€' + n.toFixed(2); }
+
+  renderVals() {
+    const st = this.state;
+    const screen = st.screen;
+    const openReqs = REQUESTS.filter(r => st.accepted.indexOf(r.id) === -1 && st.declined.indexOf(r.id) === -1);
+    const detail = SHIFTS.filter(s => s.id === st.detailId)[0] || SHIFTS[1];
+    const detailBooked = st.booked.indexOf(detail.id) !== -1;
+
+    const visible = SHIFTS.filter(s => {
+      if (st.filters.rate && s.rate < 25) return false;
+      if (st.filters.near && s.km > 10) return false;
+      if (st.filters.days && s.night) return false;
+      return true;
+    });
+
+    const payable = Math.max(0, 12.13 - st.breakMin / 60);
+    const pay = payable * 29;
+
+    const chip = on => on
+      ? 'cursor:pointer;background:rgba(65,182,229,.16);border:1px solid rgba(65,182,229,.4);color:#8FD6F2;font-size:12px;font-weight:700;padding:6px 11px;border-radius:9px'
+      : 'cursor:pointer;background:transparent;border:1px solid rgba(255,255,255,.22);color:#90AFD1;font-size:12px;font-weight:600;padding:6px 11px;border-radius:9px';
+
+    const tab = name => screen === name ? '#015EB8' : '#93A3BA';
+
+    const bookedShifts = st.booked.map(id => SHIFTS.filter(s => s.id === id)[0]).filter(Boolean);
+    const acceptedReqs = st.accepted.map(id => REQUESTS.filter(r => r.id === id)[0]).filter(Boolean);
+
+    const upcoming = [];
+    upcoming.push({
+      dow: 'THU', day: '27', place: 'Beaumont Nursing Home', sub: '08:00–20:00 · €29/hr',
+      cardStyle: 'background:#fff;border-radius:16px;padding:15px;display:flex;align-items:center;gap:13px;box-shadow:0 0 0 1px rgba(13,45,94,.06),0 1px 2px rgba(13,45,94,.05)',
+      dayColor: '#5A6E8C', numColor: '#0D2D5E', subColor: '#5A6E8C', rule: '#DCE5EF'
+    });
+    bookedShifts.forEach(s => upcoming.push({
+      dow: s.dow, day: s.day, place: s.place, sub: '€' + s.rate + '/hr · just booked',
+      cardStyle: 'background:#E4EFFA;border-radius:16px;padding:15px;display:flex;align-items:center;gap:13px;box-shadow:0 0 0 1px rgba(1,94,184,.16)',
+      dayColor: '#014A93', numColor: '#014A93', subColor: '#015EB8', rule: '#B9D5F0'
+    }));
+    acceptedReqs.forEach(r => upcoming.push({
+      dow: r.dow, day: r.day, place: r.place, sub: '€' + r.rate + '/hr · request accepted',
+      cardStyle: 'background:#E4EFFA;border-radius:16px;padding:15px;display:flex;align-items:center;gap:13px;box-shadow:0 0 0 1px rgba(1,94,184,.16)',
+      dayColor: '#014A93', numColor: '#014A93', subColor: '#015EB8', rule: '#B9D5F0'
+    }));
+
+    const log = [];
+    if (st.submitted) log.push({ icon: 'task_alt', bg: '#E4EFFA', fg: '#015EB8', title: 'Timesheet submitted for approval', sub: 'Beaumont · ' + this.money(pay) });
+    st.accepted.forEach(id => {
+      const r = REQUESTS.filter(x => x.id === id)[0];
+      if (r) log.push({ icon: 'event_available', bg: '#E4EFFA', fg: '#015EB8', title: 'You accepted ' + r.place, sub: r.when });
+    });
+    st.declined.forEach(id => {
+      const r = REQUESTS.filter(x => x.id === id)[0];
+      if (r) log.push({ icon: 'event_busy', bg: '#FBE9F2', fg: '#A8347A', title: 'You declined ' + r.place, sub: r.when });
+    });
+    log.push({ icon: 'payments', bg: '#E4EFFA', fg: '#015EB8', title: '€486.20 paid to your account', sub: 'Friday, 21 Aug' });
+    log.push({ icon: 'verified', bg: '#E4EFFA', fg: '#015EB8', title: 'Manual handling certificate verified', sub: 'Mon 18 Aug' });
+
+    const docs = [
+      { name: 'NMBI registration', status: 'Valid to 31 Dec 2026', icon: 'check_circle', color: '#0F8A4D', subColor: '#5A6E8C', ok: true, missing: false },
+      { name: 'Manual handling', status: 'Valid to 14 Mar 2027', icon: 'check_circle', color: '#0F8A4D', subColor: '#5A6E8C', ok: true, missing: false },
+      st.ohAdded
+        ? { name: 'Occupational health', status: 'Uploaded — under review', icon: 'schedule', color: '#015EB8', subColor: '#015EB8', ok: true, missing: false }
+        : { name: 'Occupational health', status: 'Missing', icon: 'error', color: '#C0392B', subColor: '#C0392B', ok: false, missing: true, add: () => { this.setState({ ohAdded: true }); this.flash('Occupational health form uploaded'); } },
+      { name: 'Right to work', status: 'Verified 2 Feb 2026', icon: 'check_circle', color: '#0F8A4D', subColor: '#5A6E8C', ok: true, missing: false }
+    ];
+
+    const extraHours = bookedShifts.concat(acceptedReqs).reduce((t, s) => t + s.hours, 0);
+    const extraPay = bookedShifts.concat(acceptedReqs).reduce((t, s) => t + s.hours * s.rate, 0);
+
+    const week = [58, 92, 0, 116, 87, 133, extraPay];
+    const peak = Math.max.apply(null, week.concat([1]));
+    const sparkPts = week.map((v, i) => [+(2 + i * 14.6).toFixed(1), +(24 - (v / peak) * 19).toFixed(1)]);
+    const sparkLine = 'M' + sparkPts.map(pt => pt[0] + ' ' + pt[1]).join(' L');
+    const sparkArea = sparkLine + ' L90 26 L2 26 Z';
+
+    return {
+      isSignIn: !st.signedIn,
+      isApp: st.signedIn,
+      isHome: screen === 'home', isShifts: screen === 'shifts', isDetail: screen === 'detail',
+      isSchedule: screen === 'schedule', isTimesheet: screen === 'timesheet',
+      isActivity: screen === 'activity', isProfile: screen === 'profile',
+      showTabs: screen !== 'detail',
+      toast: st.toast,
+
+      signIn: () => { this.setState({ signedIn: true, screen: 'home' }); },
+      signOut: () => { this.setState(Object.assign({}, START, { filters: Object.assign({}, START.filters), booked: [], accepted: [], declined: [] })); },
+      reset: () => { clearTimeout(this._t); this.setState(Object.assign({}, START, { filters: Object.assign({}, START.filters), booked: [], accepted: [], declined: [] })); },
+
+      goHome: () => this.go('home'), goShifts: () => this.go('shifts'),
+      goSchedule: () => this.go('schedule'), goTimesheet: () => this.go('timesheet'),
+      goActivity: () => this.go('activity'), goProfile: () => this.go('profile'),
+
+      tabHome: tab('home'), tabShifts: tab('shifts'), tabSchedule: tab('schedule'),
+      tabTimesheet: tab('timesheet'), tabProfile: tab('profile'),
+
+      requestCount: openReqs.length,
+      requestCountLabel: openReqs.length + ' open',
+      requestTabLabel: 'Requests · ' + openReqs.length,
+      hasRequests: openReqs.length > 0,
+      noRequests: openReqs.length === 0,
+      openRequests: openReqs.map(r => Object.assign({}, r, {
+        accept: () => { this.setState(s => ({ accepted: s.accepted.concat([r.id]) })); this.flash('Booked — ' + r.place + ' added to your schedule'); },
+        decline: () => { this.setState(s => ({ declined: s.declined.concat([r.id]) })); this.flash('Declined ' + r.place); }
+      })),
+
+      clockedIn: st.clockedIn,
+      clockLabel: st.clockedIn ? 'Clocked in at 07:58' : 'Starts in 2h 14m',
+      clockBtnLabel: st.clockedIn ? 'Clock out' : 'Clock in',
+      clockBtnStyle: st.clockedIn
+        ? 'cursor:pointer;flex:1;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);color:#fff;font-size:15px;font-weight:700;text-align:center;padding:14px;border-radius:13px'
+        : 'cursor:pointer;flex:1;background:#AE2573;color:#fff;font-size:15px;font-weight:700;text-align:center;padding:14px;border-radius:13px;animation:haloPulse 2.8s ease-out infinite',
+      toggleClock: () => {
+        const now = !st.clockedIn;
+        this.setState({ clockedIn: now });
+        this.flash(now ? 'Clocked in at Beaumont · 07:58' : 'Clocked out · timesheet ready to submit');
+      },
+      todayBadge: st.clockedIn ? 'In progress' : 'Starts 08:00',
+      todayBadgeStyle: st.clockedIn
+        ? 'background:#AE2573;color:#fff;font-size:11px;font-weight:700;padding:5px 9px;border-radius:7px;height:fit-content;display:flex;align-items:center;gap:5px'
+        : 'background:rgba(255,255,255,.18);color:#fff;font-size:11px;font-weight:700;padding:5px 9px;border-radius:7px;height:fit-content',
+
+      sparkLine: sparkLine,
+      sparkArea: sparkArea,
+      sparkDotX: sparkPts[sparkPts.length - 1][0],
+      sparkDotY: sparkPts[sparkPts.length - 1][1],
+      hoursOffset: (94.2 * (1 - Math.min(1, (36 + extraHours) / 48))).toFixed(1),
+      ringLabel: Math.round(Math.min(100, (36 + extraHours) / 48 * 100)) + '% of your\n48h target',
+      earnedLabel: this.money(486 + extraPay),
+      hoursLabel: (36 + extraHours).toFixed(1),
+      timesheetTitle: st.submitted ? '1 timesheet awaiting approval' : '2 timesheets to submit',
+      timesheetSub: st.submitted ? 'Sent to S. Byrne · paid Friday' : 'Submit by Sunday to be paid Friday',
+
+      chipRate: chip(st.filters.rate), chipNear: chip(st.filters.near), chipDays: chip(st.filters.days),
+      toggleRate: () => this.setState({ filters: Object.assign({}, st.filters, { rate: !st.filters.rate }) }),
+      toggleNear: () => this.setState({ filters: Object.assign({}, st.filters, { near: !st.filters.near }) }),
+      toggleDays: () => this.setState({ filters: Object.assign({}, st.filters, { days: !st.filters.days }) }),
+      clearFilters: () => this.setState({ filters: { rate: false, near: false, days: false } }),
+      resultLabel: visible.length === 1 ? '1 shift' : visible.length + ' shifts',
+      noResults: visible.length === 0,
+      visibleShifts: visible.map(s => Object.assign({}, s, {
+        rateLabel: '€' + s.rate,
+        meta: s.when + ' · ' + s.km + ' km',
+        cta: st.booked.indexOf(s.id) !== -1 ? 'Booked' : 'Book',
+        open: () => this.setState({ detailId: s.id, screen: 'detail' })
+      })),
+
+      detail: Object.assign({}, detail, {
+        rateFull: this.money(detail.rate),
+        hours: detail.hours.toFixed(1),
+        total: this.money(detail.rate * detail.hours)
+      }),
+      bookBtnLabel: detailBooked ? 'Booked · view schedule' : 'Book this shift',
+      bookBtnStyle: detailBooked
+        ? 'cursor:pointer;flex:1;background:#E4EFFA;color:#014A93;font-size:16px;font-weight:700;text-align:center;padding:16px;border-radius:14px'
+        : 'cursor:pointer;flex:1;background:#015EB8;color:#fff;font-size:16px;font-weight:700;text-align:center;padding:16px;border-radius:14px',
+      bookDetail: () => {
+        if (detailBooked) { this.go('schedule'); return; }
+        this.setState(s => ({ booked: s.booked.concat([detail.id]), screen: 'schedule' }));
+        this.flash('Booked ' + detail.place + ' · ' + this.money(detail.rate * detail.hours));
+      },
+
+      upcoming: upcoming,
+      day30Color: st.accepted.indexOf('r1') !== -1 || st.booked.indexOf('clontarf') !== -1 ? '#fff' : '#fff',
+      day30Bg: st.accepted.indexOf('r1') !== -1 || st.booked.indexOf('clontarf') !== -1 ? '#015EB8' : '#AE2573',
+
+      breakLabel: st.breakMin + ' min',
+      breakUp: () => this.setState(s => ({ breakMin: Math.min(90, s.breakMin + 15) })),
+      breakDown: () => this.setState(s => ({ breakMin: Math.max(0, s.breakMin - 15) })),
+      payableHours: payable.toFixed(2),
+      payLabel: this.money(pay),
+      signed: st.signed,
+      signIcon: st.signed ? 'check_circle' : 'draw',
+      signLabel: st.signed ? 'Signed by S. Byrne' : 'Tap to sign on screen',
+      signBorder: st.signed ? '#015EB8' : '#B7C6DA',
+      sign: () => { this.setState({ signed: true }); this.flash('Signature captured'); },
+      submitted: st.submitted,
+      submitBtnLabel: st.submitted ? 'Submitted · view status' : (st.signed ? 'Submit timesheet' : 'Sign to submit'),
+      submitBtnStyle: st.submitted
+        ? 'cursor:pointer;background:#E4EFFA;color:#014A93;font-size:16px;font-weight:700;text-align:center;padding:16px;border-radius:14px'
+        : st.signed
+          ? 'cursor:pointer;background:#015EB8;color:#fff;font-size:16px;font-weight:700;text-align:center;padding:16px;border-radius:14px'
+          : 'cursor:pointer;background:#DCE5EF;color:#7C8DA6;font-size:16px;font-weight:700;text-align:center;padding:16px;border-radius:14px',
+      submit: () => {
+        if (st.submitted) { this.go('activity'); return; }
+        if (!st.signed) { this.flash('Ask the ward manager to sign first'); return; }
+        this.setState({ submitted: true });
+        this.flash('Timesheet submitted · ' + this.money(pay) + ' due Friday');
+      },
+
+      activityLog: log,
+      markRead: () => this.flash('All caught up'),
+
+      documents: docs,
+      complianceLabel: st.ohAdded ? 'Compliance 9 of 10 complete' : 'Compliance 8 of 10 complete',
+      compliancePct: st.ohAdded ? '90%' : '80%'
+    };
+  }
+}
+</script>
+
+
+<div id="__claude_design_branding"><style>#__claude_design_branding{position:fixed;right:16px;bottom:16px;z-index:2147483646;display:flex;align-items:center;gap:7px;height:30px;padding:0 5px 0 10px;border-radius:999px;font-family:"Anthropic Sans",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-size:12.5px;font-weight:400;line-height:1;letter-spacing:normal;text-transform:none;color:#141413;background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);box-shadow:0 0 0 .5px rgba(31,30,29,.14),0 2px 10px rgba(0,0,0,.09)}
+#__claude_design_branding *{box-sizing:border-box;margin:0}
+#__claude_design_branding a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+#__claude_design_branding a:hover span{text-decoration:underline}
+#__claude_design_branding svg{flex:none}
+#__claude_design_branding a svg{color:#D97757}
+#__claude_design_branding button{width:20px;height:20px;padding:0;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:currentColor;opacity:.55;border:0;background:none;cursor:pointer;flex:none;font:inherit;transition:opacity .14s}
+#__claude_design_branding button:hover{opacity:1;background:rgba(127,127,127,.22)}
+@media print{#__claude_design_branding{display:none}}</style><a href="https://claude.com/product/design" target="_blank" rel="noopener noreferrer"><svg width="14" height="14" viewBox="0 0 20 21" fill="none" aria-hidden="true"><path fill="currentColor" d="M9.99902 0C15.5258 0.000170936 19.999 4.50643 19.999 10.0547C19.999 11.7656 19.5863 12.9976 18.7861 13.8203C17.9924 14.6362 16.9465 14.9138 15.9854 15.0078C15.05 15.0993 14.0097 15.0262 13.2549 15.0186C12.8524 15.0145 12.5177 15.0267 12.2441 15.0703C11.9682 15.1144 11.8143 15.1813 11.7305 15.2432C11.4745 15.4322 11.3353 15.7121 11.2656 16.1602C11.2303 16.3875 11.2168 16.6362 11.209 16.9131C11.2017 17.1715 11.1986 17.4893 11.1807 17.7705C11.1469 18.2975 11.0495 19.0865 10.4199 19.5908C9.7846 20.0996 8.88652 20.1057 7.85449 19.877C7.36399 19.7682 6.88652 19.6232 6.42578 19.4453C2.66989 17.9949 0.000187748 14.3414 0 10.0547C0 4.50643 4.47223 0.000171048 9.99902 0ZM9.99902 1.60547C5.36781 1.60564 1.60547 5.38391 1.60547 10.0547C1.60566 13.6582 3.84823 16.7296 7.00391 17.9482C7.39027 18.0974 7.79085 18.2184 8.20215 18.3096C9.1375 18.5169 9.384 18.3633 9.41602 18.3379C9.4524 18.3087 9.54558 18.1915 9.5791 17.668C9.5947 17.4239 9.59473 17.1786 9.60352 16.8672C9.61179 16.5742 9.62831 16.2435 9.67969 15.9131C9.78359 15.2455 10.0474 14.4906 10.7764 13.9521C11.1479 13.6778 11.5842 13.5493 11.9912 13.4844C12.4007 13.4191 12.8434 13.4088 13.2705 13.4131C14.1753 13.4222 15.0071 13.4905 15.8291 13.4102C16.6257 13.3322 17.2249 13.1235 17.6357 12.7012C18.0401 12.2855 18.3935 11.5261 18.3936 10.0547C18.3936 5.38391 14.6302 1.60564 9.99902 1.60547ZM5.11621 9.86719C5.86386 9.91468 6.45486 10.5348 6.45508 11.2939C6.45506 12.0838 5.81519 12.7245 5.02539 12.7246C4.28481 12.7246 3.67573 12.1617 3.60254 11.4404L3.59473 11.2939L3.60156 11.1533C3.66942 10.4596 4.23282 9.91186 4.93359 9.86719H5.11621ZM14.9814 7.19141C15.729 7.23889 16.3199 7.85919 16.3203 8.61816C16.3203 9.40801 15.6804 10.0487 14.8906 10.0488C14.1501 10.0487 13.5409 9.48586 13.4678 8.76465L13.46 8.61816L13.4668 8.47754C13.5348 7.78403 14.0983 7.23618 14.7988 7.19141H14.9814ZM6.4541 4.93457C7.20161 4.9822 7.79275 5.60231 7.79297 6.36133C7.79288 7.151 7.15291 7.7917 6.36328 7.79199C5.62274 7.79199 5.01369 7.22903 4.94043 6.50781L4.93262 6.36133L4.93945 6.2207C5.00731 5.52698 5.5707 4.97922 6.27148 4.93457H6.4541ZM11.3867 3.59668C12.1343 3.64419 12.7253 4.26436 12.7256 5.02344C12.7256 5.81326 12.0857 6.45393 11.2959 6.4541C10.5553 6.4541 9.94622 5.89123 9.87305 5.16992L9.86523 5.02344L9.87207 4.88281C9.93996 4.18912 10.5033 3.64133 11.2041 3.59668H11.3867Z"></path></svg><span>Made with Claude Design</span></a><button type="button" aria-label="Dismiss" onclick="this.parentElement.remove()"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></button></div></body></html>

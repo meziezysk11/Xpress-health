@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "express-health",
+    "slug": "express-health",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "scheme": "expresshealth",
+    "backgroundColor": "#F4F7FB",
+    "splash": {
+      "backgroundColor": "#0D2D5E",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.xpresshealth.app"
+    },
+    "android": {
+      "package": "com.xpresshealth.app",
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-font"
+    ]
+  }
+}

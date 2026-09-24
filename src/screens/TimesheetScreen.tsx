@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, TextInput } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -112,9 +112,13 @@ export function TimesheetScreen() {
         <View style={styles.fieldSection}>
           <Text style={styles.fieldLabel}>Notes for the ward manager</Text>
           <View style={styles.notesBox}>
-            <Text style={styles.notesPlaceholder}>
-              Optional — handover notes, overtime reason…
-            </Text>
+            <TextInput
+              style={styles.notesPlaceholder}
+              multiline
+              numberOfLines={3}
+              placeholder="Optional — handover notes, overtime reason…"
+              placeholderTextColor={colors.textMuted2}
+            />
           </View>
         </View>
 
@@ -144,7 +148,7 @@ export function TimesheetScreen() {
         </View>
       </ScrollView>
 
-      <View style={[styles.footer, { paddingBottom: Math.max(12, 12 + insets.bottom) }]}>
+      <View style={[styles.footer]}>
         <PressableScale
           onPress={() => {
             if (state.submitted) {
@@ -381,12 +385,13 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     borderRadius: 14,
     padding: 13,
-    minHeight: 46,
+    minHeight: 100,
   },
   notesPlaceholder: {
     fontSize: 14,
     fontFamily: fonts.medium,
     color: colors.textMuted2,
+    textAlignVertical: 'top',
   },
   signBox: {
     backgroundColor: colors.white,

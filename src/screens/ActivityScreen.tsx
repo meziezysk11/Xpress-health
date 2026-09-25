@@ -1,5 +1,5 @@
-import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { use } from 'react';
+import { ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -15,6 +15,7 @@ export function ActivityScreen() {
   const { state, dispatch, flash } = useApp();
   const insets = useSafeAreaInsets();
   const requests = openRequests(state);
+  const { width } = useWindowDimensions()
   const log = activityLog(state);
 
   return (
@@ -67,14 +68,14 @@ export function ActivityScreen() {
             </View>
             <View style={styles.requestActions}>
               <PressableScale
-                style={styles.acceptBtn}
+                style={[styles.acceptBtn, { width: (width - 85) / 2 }]}
                 onPress={() =>
                   dispatch({ type: 'ACCEPT', id: req.id, place: req.place })
                 }>
                 <Text style={styles.acceptText}>Accept</Text>
               </PressableScale>
               <PressableScale
-                style={styles.declineBtn}
+                style={[styles.declineBtn, { width: (width - 85) / 2 }]}
                 onPress={() =>
                   dispatch({ type: 'DECLINE', id: req.id, place: req.place })
                 }>
@@ -212,6 +213,7 @@ const styles = StyleSheet.create({
   },
   requestActions: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     gap: 9,
   },
   acceptBtn: {

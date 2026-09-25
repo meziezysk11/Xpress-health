@@ -88,7 +88,7 @@ export function SignInScreen() {
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.screen, { paddingTop: insets.top }]}>
+    <View style={[styles.screen, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
       <View style={styles.hero}>
         <HeroBackdrop />
         <FloatingOrb />

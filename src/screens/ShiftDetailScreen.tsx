@@ -16,7 +16,7 @@ const CREW = [
 ];
 
 export function ShiftDetailScreen() {
-  const { state, dispatch } = useApp();
+  const { state, go, book } = useApp();
   const insets = useSafeAreaInsets();
   const detail = currentDetail(state);
   const booked = state.booked.includes(detail.id);
@@ -33,7 +33,7 @@ export function ShiftDetailScreen() {
         <View style={styles.navRow}>
           <PressableScale
             scaleTo={0.9}
-            onPress={() => dispatch({ type: 'GO', screen: 'shifts' })}>
+            onPress={() => go('shifts')}>
             <Icon name="arrow_back" size={24} color={colors.white} />
           </PressableScale>
           <View style={styles.navActions}>
@@ -149,14 +149,9 @@ export function ShiftDetailScreen() {
           <PressableScale
             onPress={() => {
               if (booked) {
-                dispatch({ type: 'GO', screen: 'schedule' });
+                go('schedule');
               } else {
-                dispatch({
-                  type: 'BOOK',
-                  id: detail.id,
-                  place: detail.place,
-                  amount: total,
-                });
+                book(detail.id, detail.place, total);
               }
             }}
             style={booked ? styles.bookBtnDone : styles.bookBtn}>

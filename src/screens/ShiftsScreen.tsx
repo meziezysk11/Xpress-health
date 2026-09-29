@@ -10,10 +10,9 @@ import { PressableScale } from '../components/PressableScale';
 import { colors, fonts, gradient160 } from '../theme/theme';
 import { useApp } from '../state/AppStateContext';
 import { visibleShifts } from '../state/derive';
-import { Filters } from '../data/model';
 
 export function ShiftsScreen() {
-  const { state, dispatch } = useApp();
+  const { state, toggleFilter, openDetail, clearFilters } = useApp();
   const insets = useSafeAreaInsets();
   const visible = visibleShifts(state);
 
@@ -39,23 +38,17 @@ export function ShiftsScreen() {
           <Chip
             label="€25+/hr"
             active={state.filters.rate}
-            onPress={() =>
-              dispatch({ type: 'TOGGLE_FILTER', key: 'rate' as keyof Filters })
-            }
+            onPress={() => toggleFilter('rate')}
           />
           <Chip
             label="Within 10 km"
             active={state.filters.near}
-            onPress={() =>
-              dispatch({ type: 'TOGGLE_FILTER', key: 'near' as keyof Filters })
-            }
+            onPress={() => toggleFilter('near')}
           />
           <Chip
             label="Days only"
             active={state.filters.days}
-            onPress={() =>
-              dispatch({ type: 'TOGGLE_FILTER', key: 'days' as keyof Filters })
-            }
+            onPress={() => toggleFilter('days')}
           />
         </View>
       </LinearGradient>
@@ -79,9 +72,7 @@ export function ShiftsScreen() {
           return (
             <PressableScale
               key={shift.id}
-              onPress={() =>
-                dispatch({ type: 'OPEN_DETAIL', id: shift.id })
-              }>
+              onPress={() => openDetail(shift.id)}>
               <Card radius={18} style={styles.shiftCard}>
                 <View style={styles.shiftTop}>
                   <View style={styles.shiftCopy}>
@@ -121,7 +112,7 @@ export function ShiftsScreen() {
               Loosen a filter above to see more of the 24 shifts near you.
             </Text>
             <PressableScale
-              onPress={() => dispatch({ type: 'CLEAR_FILTERS' })}
+              onPress={clearFilters}
               style={styles.clearBtn}>
               <Text style={styles.clearText}>Clear filters</Text>
             </PressableScale>

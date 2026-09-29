@@ -23,7 +23,7 @@ import {
 import { HOURLY_RATE } from '../data/model';
 
 export function HomeScreen() {
-  const { state, dispatch } = useApp();
+  const { state, go, accept, decline } = useApp();
   const insets = useSafeAreaInsets();
   const requests = openRequests(state);
   const { extraHours, extraPay } = extraTotals(state);
@@ -55,7 +55,7 @@ export function HomeScreen() {
           </View>
           <PressableScale
             scaleTo={0.92}
-            onPress={() => dispatch({ type: 'GO', screen: 'activity' })}>
+            onPress={() => go('activity')}>
             <View>
               <Icon name="notifications" size={23} color={colors.onNavyLight} />
               {requests.length > 0 && (
@@ -122,7 +122,7 @@ export function HomeScreen() {
         </View>
 
         <PressableScale
-          onPress={() => dispatch({ type: 'GO', screen: 'timesheet' })}>
+          onPress={() => go('timesheet')}>
           <Card radius={18} style={styles.timesheetCard}>
             <View style={styles.timesheetIconBox}>
               <Icon name="pending_actions" size={22} color={colors.berryMid} />
@@ -164,24 +164,12 @@ export function HomeScreen() {
               <View style={styles.requestActions}>
                 <PressableScale
                   style={[styles.acceptBtn, { width: (width - 80) / 2 }]}
-                  onPress={() =>
-                    dispatch({
-                      type: 'ACCEPT',
-                      id: req.id,
-                      place: req.place,
-                    })
-                  }>
+                  onPress={() => accept(req.id, req.place)}>
                   <Text style={styles.acceptText}>Accept</Text>
                 </PressableScale>
                 <PressableScale
                   style={[styles.declineBtn, { width: (width - 80) / 2 }]}
-                  onPress={() =>
-                    dispatch({
-                      type: 'DECLINE',
-                      id: req.id,
-                      place: req.place,
-                    })
-                  }>
+                  onPress={() => decline(req.id, req.place)}>
                   <Text style={styles.declineText}>Decline</Text>
                 </PressableScale>
               </View>
@@ -204,12 +192,12 @@ export function HomeScreen() {
 }
 
 function ClockInButton({ width }: { width: number }) {
-  const { state, dispatch } = useApp();
+  const { state, toggleClock } = useApp();
   const clockedIn = state.clockedIn;
 
   return (
     <PressableScale
-      onPress={() => dispatch({ type: 'TOGGLE_CLOCK' })}
+      onPress={toggleClock}
       style={[buttons.primaryUrgent, styles.ctaBtn, clockedIn ? styles.clockBtnDone : null, { width: (width - 60) / 2 }]}>
       {!clockedIn && <HaloPulse />}
       <Text style={styles.clockBtnText}>

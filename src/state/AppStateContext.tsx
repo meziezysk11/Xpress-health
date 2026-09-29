@@ -1,12 +1,6 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useEffect } from 'react';
+import { createStore } from 'zustand/vanilla';
+import { useStore } from 'zustand';
 
 import {
   AppState,
@@ -16,137 +10,138 @@ import {
 } from '../data/model';
 import { money } from './derive';
 
-export type AppAction =
-  | { type: 'SIGN_IN' }
-  | { type: 'SIGN_OUT' }
-  | { type: 'GO'; screen: ScreenName }
-  | { type: 'TOGGLE_FILTER'; key: keyof Filters }
-  | { type: 'CLEAR_FILTERS' }
-  | { type: 'OPEN_DETAIL'; id: string }
-  | { type: 'BOOK'; id: string; place: string; amount: number }
-  | { type: 'TOGGLE_CLOCK' }
-  | { type: 'ACCEPT'; id: string; place: string }
-  | { type: 'DECLINE'; id: string; place: string }
-  | { type: 'BREAK_DELTA'; delta: number }
-  | { type: 'SIGN_SHEET' }
-  | { type: 'SUBMIT'; pay: number }
-  | { type: 'ADD_OH' }
-  | { type: 'SHOW_TOAST'; message: string }
-  | { type: 'HIDE_TOAST' };
+interface AppActions {
+  signIn: () => void;
+  signOut: () => void;
+  go: (screen: ScreenName) => void;
+  toggleFilter: (key: keyof Filters) => void;
+  clearFilters: () => void;
+  openDetail: (id: string) => void;
+  book: (id: string, place: string, amount: number) => void;
+  toggleClock: () => void;
+  accept: (id: string, place: string) => void;
+  decline: (id: string, place: string) => void;
+  adjustBreak: (delta: number) => void;
+  signSheet: () => void;
+  submit: (pay: number) => void;
+  addOccupationalHealth: () => void;
+  flash: (message: string) => void;
+  clearToast: () => void;
+}
 
-function reducer(state: AppState, action: AppAction): AppState {
-  switch (action.type) {
-    case 'SIGN_IN':
-      return { ...state, signedIn: true, screen: 'home' };
-    case 'SIGN_OUT':
-      return { ...START_STATE };
-    case 'HIDE_TOAST':
-      return { ...state, toast: null };
-    case 'GO':
-      return { ...state, screen: action.screen };
-    case 'TOGGLE_FILTER':
-      return {
+interface AppStore extends AppActions {
+  state: AppState;
+}
+
+const appStore = createStore<AppStore>((set, get) => ({
+  state: START_STATE,
+  signIn: () =>
+    set({ state: { ...get().state, signedIn: true, screen: 'home' } }),
+  signOut: () => set({ state: { ...START_STATE } }),
+  go: (screen) => set({ state: { ...get().state, screen } }),
+  toggleFilter: (key) => {
+    const state = get().state;
+    set({
+      state: {
         ...state,
-        filters: { ...state.filters, [action.key]: !state.filters[action.key] },
-      };
-    case 'CLEAR_FILTERS':
-      return { ...state, filters: { rate: false, near: false, days: false } };
-    case 'OPEN_DETAIL':
-      return { ...state, detailId: action.id, screen: 'detail' };
-    case 'BOOK':
-      return {
-        ...state,
-        booked: state.booked.concat([action.id]),
+        filters: { ...state.filters, [key]: !state.filters[key] },
+      },
+    });
+  },
+  clearFilters: () =>
+    set({
+      state: {
+        ...get().state,
+        filters: { rate: false, near: false, days: false },
+      },
+    }),
+  openDetail: (id) =>
+    set({ state: { ...get().state, detailId: id, screen: 'detail' } }),
+  book: (id, place, amount) =>
+    set({
+      state: {
+        ...get().state,
+        booked: get().state.booked.concat([id]),
         screen: 'schedule',
-        toast: `Booked ${action.place} · ${money(action.amount)}`,
-      };
-    case 'TOGGLE_CLOCK':
-      return {
-        ...state,
-        clockedIn: !state.clockedIn,
-        toast: !state.clockedIn
+        toast: `Booked ${place} · ${money(amount)}`,
+      },
+    }),
+  toggleClock: () => {
+    const clockedIn = !get().state.clockedIn;
+    set({
+      state: {
+        ...get().state,
+        clockedIn,
+        toast: clockedIn
           ? 'Clocked in at Beaumont · 07:58'
           : 'Clocked out · timesheet ready to submit',
-      };
-    case 'ACCEPT':
-      return {
-        ...state,
-        accepted: state.accepted.concat([action.id]),
-        toast: `Booked — ${action.place} added to your schedule`,
-      };
-    case 'DECLINE':
-      return {
-        ...state,
-        declined: state.declined.concat([action.id]),
-        toast: `Declined ${action.place}`,
-      };
-    case 'BREAK_DELTA':
-      return {
-        ...state,
-        breakMin: Math.min(90, Math.max(0, state.breakMin + action.delta)),
-      };
-    case 'SIGN_SHEET':
-      return { ...state, signed: true, toast: 'Signature captured' };
-    case 'SUBMIT':
-      return {
-        ...state,
+      },
+    });
+  },
+  accept: (id, place) =>
+    set({
+      state: {
+        ...get().state,
+        accepted: get().state.accepted.concat([id]),
+        toast: `Booked — ${place} added to your schedule`,
+      },
+    }),
+  decline: (id, place) =>
+    set({
+      state: {
+        ...get().state,
+        declined: get().state.declined.concat([id]),
+        toast: `Declined ${place}`,
+      },
+    }),
+  adjustBreak: (delta) =>
+    set({
+      state: {
+        ...get().state,
+        breakMin: Math.min(90, Math.max(0, get().state.breakMin + delta)),
+      },
+    }),
+  signSheet: () =>
+    set({ state: { ...get().state, signed: true, toast: 'Signature captured' } }),
+  submit: (pay) =>
+    set({
+      state: {
+        ...get().state,
         submitted: true,
-        toast: `Timesheet submitted · ${money(action.pay)} due Friday`,
-      };
-    case 'ADD_OH':
-      return {
-        ...state,
+        toast: `Timesheet submitted · ${money(pay)} due Friday`,
+      },
+    }),
+  addOccupationalHealth: () =>
+    set({
+      state: {
+        ...get().state,
         ohAdded: true,
         toast: 'Occupational health form uploaded',
-      };
-    case 'SHOW_TOAST':
-      return { ...state, toast: action.message };
-    default:
-      return state;
-  }
-}
-
-const SIGN_OUT_STATE: AppState = { ...START_STATE };
-
-interface AppContextValue {
-  state: AppState;
-  dispatch: React.Dispatch<AppAction>;
-  flash: (message: string) => void;
-}
-
-const AppContext = createContext<AppContextValue | null>(null);
+      },
+    }),
+  flash: (message) => set({ state: { ...get().state, toast: message } }),
+  clearToast: () => set({ state: { ...get().state, toast: null } }),
+}));
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  const [state, dispatch] = React.useReducer(reducer, START_STATE);
+  const toast = useStore(appStore, (store) => store.state.toast);
 
-  // The design keeps a toast on screen for 2.6s.
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
-    if (!state.toast) return;
-    timer.current = setTimeout(() => dispatch({ type: 'HIDE_TOAST' }), 2600);
-    return () => {
-      if (timer.current) clearTimeout(timer.current);
-    };
-  }, [state.toast]);
-
-  const flash = useCallback((message: string) => {
-    dispatch({ type: 'SHOW_TOAST', message });
+    appStore.setState({ state: START_STATE });
   }, []);
 
-  const value = useMemo<AppContextValue>(
-    () => ({ state, dispatch, flash }),
-    [state, flash],
-  );
+  useEffect(() => {
+    if (!toast) return;
+    const timer = setTimeout(
+      () => appStore.getState().clearToast(),
+      2600,
+    );
+    return () => clearTimeout(timer);
+  }, [toast]);
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  return <>{children}</>;
 }
 
-function useReducerCompat(reducerFn: typeof reducer) {
-  return React.useReducer(reducerFn, START_STATE);
-}
-
-export function useApp(): AppContextValue {
-  const ctx = useContext(AppContext);
-  if (!ctx) throw new Error('useApp must be used inside <AppProvider>');
-  return ctx;
+export function useApp() {
+  return useStore(appStore);
 }

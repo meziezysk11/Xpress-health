@@ -1,141 +1,25 @@
 import React, { useEffect } from 'react';
-import { createStore } from 'zustand/vanilla';
 import { useStore } from 'zustand';
 
-import {
-  AppState,
-  Filters,
-  ScreenName,
-  START_STATE,
-} from '../data/model';
-import { money } from './derive';
-
-interface AppActions {
-  signIn: () => void;
-  signOut: () => void;
-  go: (screen: ScreenName) => void;
-  toggleFilter: (key: keyof Filters) => void;
-  clearFilters: () => void;
-  openDetail: (id: string) => void;
-  book: (id: string, place: string, amount: number) => void;
-  toggleClock: () => void;
-  accept: (id: string, place: string) => void;
-  decline: (id: string, place: string) => void;
-  adjustBreak: (delta: number) => void;
-  signSheet: () => void;
-  submit: (pay: number) => void;
-  addOccupationalHealth: () => void;
-  flash: (message: string) => void;
-  clearToast: () => void;
-}
-
-interface AppStore extends AppActions {
-  state: AppState;
-}
-
-const appStore = createStore<AppStore>((set, get) => ({
-  state: START_STATE,
-  signIn: () =>
-    set({ state: { ...get().state, signedIn: true, screen: 'home' } }),
-  signOut: () => set({ state: { ...START_STATE } }),
-  go: (screen) => set({ state: { ...get().state, screen } }),
-  toggleFilter: (key) => {
-    const state = get().state;
-    set({
-      state: {
-        ...state,
-        filters: { ...state.filters, [key]: !state.filters[key] },
-      },
-    });
-  },
-  clearFilters: () =>
-    set({
-      state: {
-        ...get().state,
-        filters: { rate: false, near: false, days: false },
-      },
-    }),
-  openDetail: (id) =>
-    set({ state: { ...get().state, detailId: id, screen: 'detail' } }),
-  book: (id, place, amount) =>
-    set({
-      state: {
-        ...get().state,
-        booked: get().state.booked.concat([id]),
-        screen: 'schedule',
-        toast: `Booked ${place} · ${money(amount)}`,
-      },
-    }),
-  toggleClock: () => {
-    const clockedIn = !get().state.clockedIn;
-    set({
-      state: {
-        ...get().state,
-        clockedIn,
-        toast: clockedIn
-          ? 'Clocked in at Beaumont · 07:58'
-          : 'Clocked out · timesheet ready to submit',
-      },
-    });
-  },
-  accept: (id, place) =>
-    set({
-      state: {
-        ...get().state,
-        accepted: get().state.accepted.concat([id]),
-        toast: `Booked — ${place} added to your schedule`,
-      },
-    }),
-  decline: (id, place) =>
-    set({
-      state: {
-        ...get().state,
-        declined: get().state.declined.concat([id]),
-        toast: `Declined ${place}`,
-      },
-    }),
-  adjustBreak: (delta) =>
-    set({
-      state: {
-        ...get().state,
-        breakMin: Math.min(90, Math.max(0, get().state.breakMin + delta)),
-      },
-    }),
-  signSheet: () =>
-    set({ state: { ...get().state, signed: true, toast: 'Signature captured' } }),
-  submit: (pay) =>
-    set({
-      state: {
-        ...get().state,
-        submitted: true,
-        toast: `Timesheet submitted · ${money(pay)} due Friday`,
-      },
-    }),
-  addOccupationalHealth: () =>
-    set({
-      state: {
-        ...get().state,
-        ohAdded: true,
-        toast: 'Occupational health form uploaded',
-      },
-    }),
-  flash: (message) => set({ state: { ...get().state, toast: message } }),
-  clearToast: () => set({ state: { ...get().state, toast: null } }),
-}));
+import { AppState } from '../data/model';
+import { authStore } from './stores/authStore';
+import { bookingStore } from './stores/bookingStore';
+import { clockStore } from './stores/clockStore';
+import { navigationStore } from './stores/navigationStore';
+import { profileStore } from './stores/profileStore';
+import { timesheetStore } from './stores/timesheetStore';
+import { toastStore } from './stores/toastStore';
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
-  const toast = useStore(appStore, (store) => store.state.toast);
+  const toast = useStore(toastStore, (store) => store.toast);
 
   useEffect(() => {
-    appStore.setState({ state: START_STATE });
+    authStore.getState().signOut();
   }, []);
 
   useEffect(() => {
     if (!toast) return;
-    const timer = setTimeout(
-      () => appStore.getState().clearToast(),
-      2600,
-    );
+    const timer = setTimeout(() => toastStore.getState().clearToast(), 2600);
     return () => clearTimeout(timer);
   }, [toast]);
 
@@ -143,5 +27,47 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useApp() {
-  return useStore(appStore);
+  const auth = useStore(authStore);
+  const navigation = useStore(navigationStore);
+  const booking = useStore(bookingStore);
+  const clock = useStore(clockStore);
+  const timesheet = useStore(timesheetStore);
+  const profile = useStore(profileStore);
+  const toast = useStore(toastStore);
+
+  const state: AppState = {
+    signedIn: auth.signedIn,
+    screen: navigation.screen,
+    detailId: navigation.detailId,
+    filters: booking.filters,
+    booked: booking.booked,
+    accepted: booking.accepted,
+    declined: booking.declined,
+    clockedIn: clock.clockedIn,
+    breakMin: clock.breakMin,
+    signed: timesheet.signed,
+    submitted: timesheet.submitted,
+    ohAdded: profile.ohAdded,
+    toast: toast.toast,
+  };
+
+  return {
+    state,
+    signIn: auth.signIn,
+    signOut: auth.signOut,
+    go: navigation.go,
+    openDetail: navigation.openDetail,
+    toggleFilter: booking.toggleFilter,
+    clearFilters: booking.clearFilters,
+    book: booking.book,
+    accept: booking.accept,
+    decline: booking.decline,
+    toggleClock: clock.toggleClock,
+    adjustBreak: clock.adjustBreak,
+    signSheet: timesheet.signSheet,
+    submit: timesheet.submit,
+    addOccupationalHealth: profile.addOccupationalHealth,
+    flash: toast.flash,
+  };
 }
+

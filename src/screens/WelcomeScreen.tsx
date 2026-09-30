@@ -88,7 +88,6 @@ export function WelcomeScreen({ onComplete }: { onComplete: () => void }) {
       <View style={styles.footer}>
         <View style={styles.progressRow}>
           <View style={styles.dots}>{slides.map((_, position) => <Pressable key={position} accessibilityRole="button" accessibilityLabel={`Show slide ${position + 1} of ${slides.length}`} accessibilityState={{ selected: index === position }} onPress={() => navigate(position)} style={styles.dotHit}><View style={[styles.dot, index === position && styles.activeDot]} /></Pressable>)}</View>
-          <Text style={styles.counter}>{index + 1} / {slides.length}</Text>
         </View>
         <View style={styles.actions}>
           {index > 0 && <Pressable accessibilityRole="button" accessibilityLabel="Previous slide" onPress={() => navigate(index - 1)} style={styles.back}><Icon name="arrow_back" size={22} color={colors.white} /></Pressable>}

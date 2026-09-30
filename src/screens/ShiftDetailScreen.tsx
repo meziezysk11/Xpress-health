@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -16,9 +16,10 @@ const CREW = [
 ];
 
 export function ShiftDetailScreen() {
-  const { state, dispatch } = useApp();
+  const { state, go, book } = useApp();
   const insets = useSafeAreaInsets();
   const detail = currentDetail(state);
+  const { width } = useWindowDimensions();
   const booked = state.booked.includes(detail.id);
   const total = detail.rate * detail.hours;
 
@@ -33,7 +34,7 @@ export function ShiftDetailScreen() {
         <View style={styles.navRow}>
           <PressableScale
             scaleTo={0.9}
-            onPress={() => dispatch({ type: 'GO', screen: 'shifts' })}>
+            onPress={() => go('shifts')}>
             <Icon name="arrow_back" size={24} color={colors.white} />
           </PressableScale>
           <View style={styles.navActions}>
@@ -149,17 +150,12 @@ export function ShiftDetailScreen() {
           <PressableScale
             onPress={() => {
               if (booked) {
-                dispatch({ type: 'GO', screen: 'schedule' });
+                go('schedule');
               } else {
-                dispatch({
-                  type: 'BOOK',
-                  id: detail.id,
-                  place: detail.place,
-                  amount: total,
-                });
+                book(detail.id, detail.place, total);
               }
             }}
-            style={booked ? styles.bookBtnDone : styles.bookBtn}>
+            style={[booked ? styles.bookBtnDone : styles.bookBtn, { width: width /1.5 }]}>
             <Text
               style={
                 booked ? styles.bookBtnDoneText : styles.bookBtnText
@@ -168,7 +164,6 @@ export function ShiftDetailScreen() {
             </Text>
           </PressableScale>
         </View>
-        <View style={styles.homeIndicator} />
       </View>
     </View>
   );
@@ -397,7 +392,6 @@ const styles = StyleSheet.create({
     fontVariant: ['tabular-nums'],
   },
   bookBtn: {
-    flex: 1,
     backgroundColor: colors.blue,
     borderRadius: 14,
     paddingVertical: 16,
@@ -409,7 +403,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   bookBtnDone: {
-    flex: 1,
     backgroundColor: colors.blueBg,
     borderRadius: 14,
     paddingVertical: 16,

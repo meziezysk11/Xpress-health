@@ -23,7 +23,7 @@ const TABS: { name: ScreenName; icon: 'home' | 'search' | 'calendar_month' | 're
 ];
 
 function Tab({ tab, active }: { tab: (typeof TABS)[number]; active: boolean }) {
-  const { dispatch } = useApp();
+  const { go } = useApp();
   const progress = useSharedValue(active ? 1 : 0);
 
   React.useEffect(() => {
@@ -41,7 +41,7 @@ function Tab({ tab, active }: { tab: (typeof TABS)[number]; active: boolean }) {
   return (
     <PressableScale
       scaleTo={0.94}
-      onPress={() => dispatch({ type: 'GO', screen: tab.name })}
+      onPress={() => go(tab.name)}
       style={styles.tab}>
 
       <Animated.View style={scaleStyle}>

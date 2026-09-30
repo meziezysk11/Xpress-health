@@ -12,7 +12,7 @@ import { useApp } from '../state/AppStateContext';
 import { activityLog, openRequests } from '../state/derive';
 
 export function ActivityScreen() {
-  const { state, dispatch, flash } = useApp();
+  const { state, go, accept, decline, flash } = useApp();
   const insets = useSafeAreaInsets();
   const requests = openRequests(state);
   const { width } = useWindowDimensions()
@@ -29,7 +29,7 @@ export function ActivityScreen() {
         <View style={styles.titleRow}>
           <PressableScale
             scaleTo={0.9}
-            onPress={() => dispatch({ type: 'GO', screen: 'home' })}>
+            onPress={() => go('home')}>
             <Icon name="arrow_back" size={24} color={colors.white} />
           </PressableScale>
           <Text style={styles.title}>Activity</Text>
@@ -69,16 +69,12 @@ export function ActivityScreen() {
             <View style={styles.requestActions}>
               <PressableScale
                 style={[styles.acceptBtn, { width: (width - 85) / 2 }]}
-                onPress={() =>
-                  dispatch({ type: 'ACCEPT', id: req.id, place: req.place })
-                }>
+                onPress={() => accept(req.id, req.place)}>
                 <Text style={styles.acceptText}>Accept</Text>
               </PressableScale>
               <PressableScale
                 style={[styles.declineBtn, { width: (width - 85) / 2 }]}
-                onPress={() =>
-                  dispatch({ type: 'DECLINE', id: req.id, place: req.place })
-                }>
+                onPress={() => decline(req.id, req.place)}>
                 <Text style={styles.declineText}>Decline</Text>
               </PressableScale>
             </View>

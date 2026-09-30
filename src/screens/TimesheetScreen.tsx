@@ -12,7 +12,7 @@ import { useApp } from '../state/AppStateContext';
 import { money, payableHours } from '../state/derive';
 
 export function TimesheetScreen() {
-  const { state, dispatch } = useApp();
+  const { state, go, adjustBreak, signSheet, submit, flash } = useApp();
   const insets = useSafeAreaInsets();
   const payable = payableHours(state.breakMin);
   const payTotal = payable * 29;
@@ -27,7 +27,7 @@ export function TimesheetScreen() {
         locations={[0, 1]}>
         <PressableScale
           scaleTo={0.9}
-          onPress={() => dispatch({ type: 'GO', screen: 'home' })}>
+          onPress={() => go('home')}>
           <Icon name="arrow_back" size={24} color={colors.white} />
         </PressableScale>
         <View>
@@ -71,7 +71,7 @@ export function TimesheetScreen() {
             <View style={styles.stepper}>
               <PressableScale
                 scaleTo={0.9}
-                onPress={() => dispatch({ type: 'BREAK_DELTA', delta: -15 })}>
+                onPress={() => adjustBreak(-15)}>
                 <View style={styles.stepDown}>
                   <Icon name="remove" size={17} color={colors.textMuted} />
                 </View>
@@ -79,7 +79,7 @@ export function TimesheetScreen() {
               <Text style={styles.breakValue}>{state.breakMin} min</Text>
               <PressableScale
                 scaleTo={0.9}
-                onPress={() => dispatch({ type: 'BREAK_DELTA', delta: 15 })}>
+                onPress={() => adjustBreak(15)}>
                 <View style={styles.stepUp}>
                   <Icon name="add" size={17} color={colors.blue} />
                 </View>
@@ -126,7 +126,7 @@ export function TimesheetScreen() {
           <Text style={styles.fieldLabel}>Manager signature</Text>
           <PressableScale
             scaleTo={0.98}
-            onPress={() => dispatch({ type: 'SIGN_SHEET' })}>
+            onPress={signSheet}>
             <View
               style={[
                 styles.signBox,
@@ -152,14 +152,11 @@ export function TimesheetScreen() {
         <PressableScale
           onPress={() => {
             if (state.submitted) {
-              dispatch({ type: 'GO', screen: 'activity' });
+              go('activity');
             } else if (state.signed) {
-              dispatch({ type: 'SUBMIT', pay: payTotal });
+              submit(payTotal);
             } else {
-              dispatch({
-                type: 'SHOW_TOAST',
-                message: 'Ask the ward manager to sign first',
-              });
+              flash('Ask the ward manager to sign first');
             }
           }}
           style={submitStyle(state)}>

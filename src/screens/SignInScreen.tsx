@@ -84,7 +84,7 @@ function HeroBackdrop() {
 }
 
 export function SignInScreen() {
-  const { dispatch } = useApp();
+  const { signIn } = useApp();
   const insets = useSafeAreaInsets();
 
   return (
@@ -163,12 +163,12 @@ export function SignInScreen() {
         </View>
 
         <PressableScale
-          onPress={() => dispatch({ type: 'SIGN_IN' })}
+          onPress={signIn}
           style={styles.signInBtn}>
           <Text style={styles.signInText}>Sign in</Text>
         </PressableScale>
         <PressableScale
-          onPress={() => dispatch({ type: 'SIGN_IN' })}
+          onPress={signIn}
           style={styles.faceIdBtn}>
           <Icon name="fingerprint" size={20} color={colors.blue} />
           <Text style={styles.faceIdText}>Use Face ID</Text>

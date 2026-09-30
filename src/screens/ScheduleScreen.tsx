@@ -25,7 +25,7 @@ function dayCell(day: number, booked30: boolean): DayCell {
 }
 
 export function ScheduleScreen() {
-  const { state, dispatch } = useApp();
+  const { state, toggleClock } = useApp();
   const insets = useSafeAreaInsets();
   const upcoming = upcomingEntries(state);
   const booked30 =
@@ -108,7 +108,7 @@ export function ScheduleScreen() {
               </View>
             </View>
             <PressableScale
-              onPress={() => dispatch({ type: 'TOGGLE_CLOCK' })}
+              onPress={toggleClock}
               style={styles.clockBtn}>
               <Text style={styles.clockBtnText}>
                 {state.clockedIn ? 'Clock out' : 'Clock in'}

@@ -18,7 +18,7 @@ interface DocRow {
 }
 
 export function ProfileScreen() {
-  const { state, dispatch } = useApp();
+  const { state, addOccupationalHealth, signOut } = useApp();
   const insets = useSafeAreaInsets();
 
   const docs: DocRow[] = [
@@ -141,7 +141,7 @@ export function ProfileScreen() {
               </View>
               {!doc.ok ? (
                 <PressableScale
-                  onPress={() => dispatch({ type: 'ADD_OH' })}
+                  onPress={addOccupationalHealth}
                   style={styles.addBtn}>
                   <Text style={styles.addBtnText}>Add</Text>
                 </PressableScale>
@@ -168,7 +168,7 @@ export function ProfileScreen() {
         </View>
 
         <PressableScale
-          onPress={() => dispatch({ type: 'SIGN_OUT' })}
+          onPress={signOut}
           style={styles.signOutBtn}>
           <Text style={styles.signOutText}>Sign out</Text>
         </PressableScale>

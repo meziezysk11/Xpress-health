@@ -14,6 +14,7 @@ import { MaterialSymbolsRounded_500Medium } from '@expo-google-fonts/material-sy
 
 import { AppProvider, useApp } from './state/AppStateContext';
 import { SignInScreen } from './screens/SignInScreen';
+import { WelcomeScreen } from './screens/WelcomeScreen';
 import { HomeScreen } from './screens/HomeScreen';
 import { ShiftsScreen } from './screens/ShiftsScreen';
 import { ShiftDetailScreen } from './screens/ShiftDetailScreen';
@@ -46,8 +47,12 @@ function renderScreen(screen: string) {
 
 function AppShell() {
   const { state } = useApp();
+  const [welcomeComplete, setWelcomeComplete] = React.useState(false);
 
   if (!state.signedIn) {
+    if (!welcomeComplete) {
+      return <WelcomeScreen onComplete={() => setWelcomeComplete(true)} />;
+    }
     return <SignInScreen />;
   }
 

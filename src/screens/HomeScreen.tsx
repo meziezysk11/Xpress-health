@@ -1,40 +1,41 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { Avatar } from '../components/Avatar';
 import { Card } from '../components/Card';
 import { DotGrid } from '../components/DotGrid';
-import { HaloPulse } from '../components/HaloPulse';
 import { Icon } from '../components/Icon';
+import { JobCard } from '../components/JobCard';
 import { PressableScale } from '../components/PressableScale';
-import { ProgressRing } from '../components/ProgressRing';
-import { PulseDot } from '../components/PulseDot';
-import { Sparkline } from '../components/Sparkline';
-import { buttons, colors, fonts, gradient160 } from '../theme/theme';
-import { useApp } from '../state/AppStateContext';
-import {
-  money,
-  openRequests,
-  ringProgress,
-  sparkline,
-  extraTotals,
-} from '../state/derive';
-import { HOURLY_RATE } from '../data/model';
+import { avatarUrl, initials } from '../api/auth';
+import { useAppliedJobIds, useJobs, useMyApplications } from '../api/queries';
+import { useAuthStore } from '../state/stores/authStore';
+import { useNavigation } from '../state/stores/navigationStore';
+import { IconName } from '../theme/glyphs';
+import { colors, fonts, gradient160 } from '../theme/theme';
 
 export function HomeScreen() {
-  const { state, go, accept, decline } = useApp();
   const insets = useSafeAreaInsets();
-  const requests = openRequests(state);
-  const { extraHours, extraPay } = extraTotals(state);
-  const spark = sparkline(state);
-  const ring = ringProgress(state);
-  const hours = 36 + extraHours;
-  const { width } = useWindowDimensions()
+  const user = useAuthStore((s) => s.user);
+  const { go, push } = useNavigation();
+  const jobs = useJobs();
+  const applications = useMyApplications();
+  const applied = useAppliedJobIds();
+
+  const latest = [...(jobs.data ?? [])]
+    .sort((a, b) => (b.createdAt ?? '').localeCompare(a.createdAt ?? ''))
+    .slice(0, 3);
+
+  const refreshing = jobs.isRefetching || applications.isRefetching;
+  const refresh = () => {
+    jobs.refetch();
+    applications.refetch();
+  };
 
   return (
     <View style={[styles.screen, { paddingTop: insets.top }]}>
-      {/* Navy gradient header */}
       <LinearGradient
         style={styles.header}
         start={gradient160.start}
@@ -42,501 +43,223 @@ export function HomeScreen() {
         colors={['#123A72', '#0D2D5E', '#0B2547']}
         locations={[0, 0.52, 1]}>
         <DotGrid />
-
         <View style={styles.profileRow}>
-          <View style={styles.profileLeft}>
-            <View style={styles.avatar}>
-              <Text style={styles.avatarText}>AN</Text>
-            </View>
+          <PressableScale scaleTo={0.95} onPress={() => go('profile')} style={styles.profileLeft}>
+            <Avatar uri={avatarUrl(user)} initials={initials(user)} size={42} />
             <View>
-              <Text style={styles.profileName}>Aoife Nolan</Text>
-              <Text style={styles.profileRole}>RGN · Dublin</Text>
-            </View>
-          </View>
-          <PressableScale
-            scaleTo={0.92}
-            onPress={() => go('activity')}>
-            <View>
-              <Icon name="notifications" size={23} color={colors.onNavyLight} />
-              {requests.length > 0 && (
-                <View style={styles.badge}>
-                  <Text style={styles.badgeText}>{requests.length}</Text>
-                </View>
-              )}
+              <Text style={styles.portal}>Candidate portal</Text>
+              <Text style={styles.brand}>Achievers Professionals</Text>
             </View>
           </PressableScale>
         </View>
-
-        <View style={styles.nextShift}>
-          <Text style={styles.nextShiftLabel}>Your next shift</Text>
-          <View style={styles.nextShiftBlock}>
-            <Text style={styles.nextShiftPlace}>Beaumont Nursing Home</Text>
-            <Text style={styles.nextShiftMeta}>
-              Today · 08:00–20:00 · Ward 2B
-            </Text>
-            <View style={styles.nextShiftChips}>
-              <View style={styles.chipSky}>
-                <Text style={styles.chipSkyText}>
-                  {state.clockedIn ? 'Clocked in at 07:58' : 'Starts in 2h 14m'}
-                </Text>
-              </View>
-              <View style={styles.chipGlass}>
-                <Text style={styles.chipGlassText}>
-                  €{HOURLY_RATE.toFixed(2)}/hr · 11.5h
-                </Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.ctaRow}>
-            <ClockInButton width={width} />
-            <PressableScale style={[styles.directionsBtn, styles.ctaBtn, { width: (width - 60) / 2 }]} >
-              <Text style={styles.directionsText}>Directions</Text>
-            </PressableScale>
-          </View>
+        <View style={styles.welcome}>
+          <Text accessibilityRole="header" style={styles.welcomeTitle}>
+            Welcome back, {user?.firstName || 'Candidate'}!
+          </Text>
+          <Text style={styles.welcomeSub}>
+            Find your next NHS or private sector role and keep track of every application.
+          </Text>
         </View>
-      </LinearGradient >
+      </LinearGradient>
 
-      {/* Scroll body */}
-      < ScrollView
+      <ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false} >
+        showsVerticalScrollIndicator={false}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor={colors.blue} />}>
         <View style={styles.statsRow}>
-          <Card radius={16} style={styles.statCard}>
-            <Text style={styles.statLabel}>Earned this week</Text>
-            <Text style={styles.statValue}>{money(486 + extraPay)}</Text>
-            <Sparkline line={spark.line} area={spark.area} dot={spark.dot} />
-          </Card>
-          <Card radius={16} style={styles.statCard}>
-            <Text style={styles.statLabel}>Hours booked</Text>
-            <Text style={styles.statValue}>{hours.toFixed(1)}</Text>
-            <View style={styles.ringRow}>
-              <ProgressRing offset={ring.offset} />
-              <Text style={styles.ringLabel}>
-                {ring.label[0]}
-                {'\n'}
-                {ring.label[1]}
-              </Text>
-            </View>
-          </Card>
+          <StatCard
+            label="Active job listings"
+            value={jobs.data?.length}
+            loading={jobs.isPending}
+            icon="work"
+            bg={colors.blue}
+            onPress={() => go('jobs')}
+          />
+          <StatCard
+            label="My applications"
+            value={applications.data?.length}
+            loading={applications.isPending}
+            icon="description"
+            bg={colors.berry}
+            onPress={() => go('applications')}
+          />
         </View>
 
-        <PressableScale
-          onPress={() => go('timesheet')}>
-          <Card radius={18} style={styles.timesheetCard}>
-            <View style={styles.timesheetIconBox}>
-              <Icon name="pending_actions" size={22} color={colors.berryMid} />
-            </View>
-            <View style={styles.timesheetCopy}>
-              <Text style={styles.timesheetTitle}>
-                {state.submitted
-                  ? '1 timesheet awaiting approval'
-                  : '2 timesheets to submit'}
-              </Text>
-              <Text style={styles.timesheetSub}>
-                {state.submitted
-                  ? 'Sent to S. Byrne · paid Friday'
-                  : 'Submit by Sunday to be paid Friday'}
-              </Text>
-            </View>
-            <Icon name="chevron_right" size={20} color={colors.textMuted2} />
-          </Card>
-        </PressableScale>
+        <View style={styles.actions}>
+          <ActionRow
+            icon="work"
+            accent={colors.blue}
+            title="Apply for jobs"
+            body="Browse all open vacancies and find your next role"
+            onPress={() => go('jobs')}
+          />
+          <ActionRow
+            icon="description"
+            accent={colors.berry}
+            title="My applications"
+            body="View your submitted job applications and status updates"
+            onPress={() => go('applications')}
+          />
+          <ActionRow
+            icon="person"
+            accent={colors.sky}
+            title="My profile"
+            body="Manage your account details and password"
+            onPress={() => go('profile')}
+          />
+        </View>
 
-        <View style={styles.requestsSection}>
-          <View style={styles.requestsHeader}>
-            <Text style={styles.requestsTitle}>Requests for you</Text>
-            <Text style={styles.requestsCount}>{requests.length} open</Text>
+        {latest.length > 0 && (
+          <View style={styles.section}>
+            <View style={styles.sectionHead}>
+              <Text style={styles.sectionTitle}>Latest roles</Text>
+              <PressableScale scaleTo={0.95} onPress={() => go('jobs')}>
+                <Text style={styles.seeAll}>See all</Text>
+              </PressableScale>
+            </View>
+            {latest.map((job) => (
+              <JobCard
+                key={job.id}
+                job={job}
+                applied={applied.has(job.id)}
+                onPress={() => push({ name: 'job', jobId: job.id })}
+                onApply={() => push({ name: 'apply', jobId: job.id })}
+              />
+            ))}
           </View>
-
-          {requests.map((req) => (
-            <Card key={req.id} radius={16} style={styles.requestCard}>
-              <View style={styles.requestTop}>
-                <View style={styles.requestCopy}>
-                  <Text style={styles.requestWhen}>{req.when}</Text>
-                  <Text style={styles.requestSub}>{req.sub}</Text>
-                </View>
-                <View style={styles.leftPill}>
-                  <PulseDot />
-                  <Text style={styles.leftPillText}>{req.left}</Text>
-                </View>
-              </View>
-              <View style={styles.requestActions}>
-                <PressableScale
-                  style={[styles.acceptBtn, { width: (width - 80) / 2 }]}
-                  onPress={() => accept(req.id, req.place)}>
-                  <Text style={styles.acceptText}>Accept</Text>
-                </PressableScale>
-                <PressableScale
-                  style={[styles.declineBtn, { width: (width - 80) / 2 }]}
-                  onPress={() => decline(req.id, req.place)}>
-                  <Text style={styles.declineText}>Decline</Text>
-                </PressableScale>
-              </View>
-            </Card>
-          ))}
-
-          {requests.length === 0 && (
-            <Card radius={16} style={styles.emptyCard}>
-              <Icon name="inbox" size={26} color={colors.textMuted2} />
-              <Text style={styles.emptyTitle}>All caught up</Text>
-              <Text style={styles.emptySub}>
-                New requests appear here as homes send them.
-              </Text>
-            </Card>
-          )}
-        </View>
-      </ScrollView >
-    </View >
+        )}
+      </ScrollView>
+    </View>
   );
 }
 
-function ClockInButton({ width }: { width: number }) {
-  const { state, toggleClock } = useApp();
-  const clockedIn = state.clockedIn;
-
+function StatCard({
+  label,
+  value,
+  loading,
+  icon,
+  bg,
+  onPress,
+}: {
+  label: string;
+  value?: number;
+  loading: boolean;
+  icon: IconName;
+  bg: string;
+  onPress: () => void;
+}) {
   return (
     <PressableScale
-      onPress={toggleClock}
-      style={[buttons.primaryUrgent, styles.ctaBtn, clockedIn ? styles.clockBtnDone : null, { width: (width - 60) / 2 }]}>
-      {!clockedIn && <HaloPulse />}
-      <Text style={styles.clockBtnText}>
-        {clockedIn ? 'Clock out' : 'Clock in'}
-      </Text>
+      accessibilityRole="button"
+      accessibilityLabel={`${label}: ${loading ? 'loading' : value ?? 0}`}
+      onPress={onPress}
+      style={[styles.stat, { backgroundColor: bg }]}>
+      <View style={styles.statOrbA} />
+      <View style={styles.statOrbB} />
+      <Text style={styles.statLabel}>{label}</Text>
+      <Text style={styles.statValue}>{loading ? '–' : value ?? 0}</Text>
+      <View style={styles.statIcon}>
+        <Icon name={icon} size={20} color={colors.white} />
+      </View>
+    </PressableScale>
+  );
+}
+
+function ActionRow({
+  icon,
+  accent,
+  title,
+  body,
+  onPress,
+}: {
+  icon: IconName;
+  accent: string;
+  title: string;
+  body: string;
+  onPress: () => void;
+}) {
+  return (
+    <PressableScale accessibilityRole="button" onPress={onPress}>
+      <Card radius={16} style={styles.action}>
+        <View style={[styles.actionAccent, { backgroundColor: accent }]} />
+        <View style={[styles.actionIcon, { backgroundColor: `${accent}18` }]}>
+          <Icon name={icon} size={22} color={accent} />
+        </View>
+        <View style={styles.actionCopy}>
+          <Text style={styles.actionTitle}>{title}</Text>
+          <Text style={styles.actionBody}>{body}</Text>
+        </View>
+        <Icon name="chevron_right" size={20} color={colors.textMuted2} />
+      </Card>
     </PressableScale>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    minHeight: 0,
-  },
-  header: {
-    paddingTop: 20,
-    paddingHorizontal: 22,
-    paddingBottom: 24,
-    gap: 20,
-    flexShrink: 0,
-    overflow: 'hidden',
-  },
-  profileRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  profileLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 11,
-  },
-  avatar: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    backgroundColor: colors.sky,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatarText: {
-    fontSize: 14,
+  screen: { flex: 1, minHeight: 0, backgroundColor: colors.bg },
+  header: { paddingTop: 18, paddingHorizontal: 22, paddingBottom: 24, gap: 20, overflow: 'hidden' },
+  profileRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  profileLeft: { flexDirection: 'row', alignItems: 'center', gap: 11 },
+  portal: {
+    fontSize: 11,
     fontFamily: fonts.bold,
-    color: colors.navy800,
-  },
-  profileName: {
-    fontSize: 15,
-    fontFamily: fonts.bold,
-    color: colors.white,
-  },
-  profileRole: {
-    fontSize: 12,
-    fontFamily: fonts.medium,
-    color: colors.onNavyMuted2,
-  },
-  badge: {
-    position: 'absolute',
-    top: -3,
-    right: -4,
-    minWidth: 16,
-    height: 16,
-    borderRadius: 8,
-    backgroundColor: colors.berry,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 3,
-  },
-  badgeText: {
-    fontSize: 10,
-    fontFamily: fonts.bold,
-    color: colors.white,
-  },
-  nextShift: {
-    gap: 15,
-  },
-  nextShiftLabel: {
-    fontSize: 12,
-    fontFamily: fonts.bold,
-    letterSpacing: 1.44,
+    letterSpacing: 1.4,
     color: colors.sky,
     textTransform: 'uppercase',
   },
-  nextShiftBlock: {
-    gap: 6,
+  brand: { fontSize: 15, fontFamily: fonts.bold, color: colors.white },
+  welcome: { gap: 7 },
+  welcomeTitle: { fontSize: 27, lineHeight: 32, fontFamily: fonts.bold, letterSpacing: -0.9, color: colors.white },
+  welcomeSub: { fontSize: 13.5, lineHeight: 19.5, fontFamily: fonts.medium, color: colors.onNavyMuted },
+  scroll: { flex: 1 },
+  scrollContent: { padding: 18, gap: 18, paddingBottom: 32 },
+  statsRow: { flexDirection: 'row', gap: 12 },
+  stat: { flex: 1, borderRadius: 18, padding: 16, overflow: 'hidden', minHeight: 132 },
+  statOrbA: {
+    position: 'absolute',
+    right: -16,
+    top: -16,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: 'rgba(255,255,255,0.1)',
   },
-  nextShiftPlace: {
-    fontSize: 28,
-    lineHeight: 30.8,
-    fontFamily: fonts.bold,
-    letterSpacing: -1.064,
-    color: colors.white,
-  },
-  nextShiftMeta: {
-    fontSize: 14.5,
-    fontFamily: fonts.medium,
-    color: colors.onNavyMuted,
-  },
-  nextShiftChips: {
-    flexDirection: 'row',
-    gap: 7,
-    marginTop: 9,
-  },
-  chipSky: {
-    backgroundColor: 'rgba(65,182,229,0.16)',
-    borderWidth: 1,
-    borderColor: 'rgba(65,182,229,0.4)',
-    borderRadius: 7,
-    paddingVertical: 5,
-    paddingHorizontal: 9,
-  },
-  chipSkyText: {
-    fontSize: 11.5,
-    fontFamily: fonts.bold,
-    color: colors.skyLight,
-  },
-  chipGlass: {
-    backgroundColor: 'rgba(255,255,255,0.12)',
-    borderRadius: 7,
-    paddingVertical: 5,
-    paddingHorizontal: 9,
-  },
-  chipGlassText: {
-    fontSize: 11.5,
-    fontFamily: fonts.semiBold,
-    color: colors.onNavyLight,
-  },
-  ctaRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 10,
-    marginTop: 10,
-  },
-  clockBtn: {
-    flex: 1,
-    backgroundColor: colors.berry,
-    borderRadius: 13,
-    paddingVertical: 16,
-    overflow: 'visible',
-    alignItems: 'center',
-  },
-  clockBtnDone: {
-    backgroundColor: 'rgba(255,255,255,0.16)',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.28)',
-  },
-  clockBtnText: {
-    fontSize: 15,
-    fontFamily: fonts.bold,
-    color: colors.white,
-  },
-  directionsBtn: {
-    borderWidth: 1.5,
-    borderColor: 'rgba(255,255,255,0.3)',
-    backgroundColor: 'rgba(11,37,71,0.45)',
-    borderRadius: 13,
-    alignItems: 'center',
-  },
-  directionsText: {
-    fontSize: 15,
-    fontFamily: fonts.semiBold,
-    color: colors.white,
-  },
-  scroll: {
-    flex: 1,
-    minHeight: 0,
-  },
-  scrollContent: {
-    paddingVertical: 20,
-    paddingHorizontal: 22,
-    gap: 16,
-  },
-  statsRow: {
-    flexDirection: 'row',
-    gap: 10,
-  },
-  statCard: {
-    flex: 1,
-    padding: 14,
-    gap: 4,
+  statOrbB: {
+    position: 'absolute',
+    right: -24,
+    bottom: -24,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: 'rgba(255,255,255,0.05)',
   },
   statLabel: {
-    fontSize: 11,
+    fontSize: 10.5,
     fontFamily: fonts.bold,
-    letterSpacing: 0.99,
-    color: colors.textMuted,
+    letterSpacing: 1.1,
     textTransform: 'uppercase',
+    color: 'rgba(255,255,255,0.75)',
   },
-  statValue: {
-    fontSize: 22,
-    fontFamily: fonts.extraBold,
-    color: colors.ink,
-    fontVariant: ['tabular-nums'],
-  },
-  ringRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    marginTop: 2,
-  },
-  ringLabel: {
-    fontSize: 11,
-    fontFamily: fonts.semiBold,
-    color: colors.textMuted,
-    lineHeight: 14.3,
-  },
-  timesheetCard: {
-    padding: 15,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 13,
-  },
-  timesheetIconBox: {
-    width: 42,
-    height: 42,
-    borderRadius: 12,
-    backgroundColor: colors.pinkBg,
+  statValue: { fontSize: 34, fontFamily: fonts.extraBold, color: colors.white, marginTop: 6 },
+  statIcon: {
+    marginTop: 'auto',
+    width: 36,
+    height: 36,
+    borderRadius: 11,
+    backgroundColor: 'rgba(255,255,255,0.2)',
     alignItems: 'center',
     justifyContent: 'center',
-    flexShrink: 0,
   },
-  timesheetCopy: {
-    flex: 1,
-    gap: 2,
-  },
-  timesheetTitle: {
-    fontSize: 15,
-    fontFamily: fonts.bold,
-    color: colors.ink,
-  },
-  timesheetSub: {
-    fontSize: 13,
-    fontFamily: fonts.medium,
-    color: colors.textMuted,
-  },
-  requestsSection: {
-    gap: 11,
-  },
-  requestsHeader: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
-    justifyContent: 'space-between',
-  },
-  requestsTitle: {
-    fontSize: 16,
-    fontFamily: fonts.bold,
-    letterSpacing: -0.16,
-    color: colors.ink,
-  },
-  requestsCount: {
-    fontSize: 13,
-    fontFamily: fonts.semiBold,
-    color: colors.blue,
-  },
-  requestCard: {
-    padding: 14,
-    gap: 10,
-  },
-  requestTop: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    gap: 10,
-  },
-  requestCopy: {
-    gap: 3,
-  },
-  requestWhen: {
-    fontSize: 15,
-    fontFamily: fonts.bold,
-    color: colors.ink,
-  },
-  requestSub: {
-    fontSize: 13,
-    fontFamily: fonts.medium,
-    color: colors.textMuted,
-  },
-  leftPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    backgroundColor: colors.pinkBg,
-    borderRadius: 7,
-    paddingVertical: 5,
-    paddingHorizontal: 9,
-  },
-  leftPillText: {
-    fontSize: 11,
-    fontFamily: fonts.bold,
-    color: colors.berryDark,
-  },
-  requestActions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 9,
-  },
-  acceptBtn: {
-    flex: 1,
-    backgroundColor: colors.blue,
-    borderRadius: 12,
-    paddingVertical: 15,
-    alignItems: 'center',
-  },
-  acceptText: {
-    fontSize: 15,
-    fontFamily: fonts.bold,
-    color: colors.white,
-  },
-  declineBtn: {
-    flex: 1,
-    borderWidth: 1.5,
-    borderColor: colors.border,
-    borderRadius: 12,
-    paddingVertical: 15,
-    alignItems: 'center',
-  },
-  declineText: {
-    fontSize: 15,
-    fontFamily: fonts.semiBold,
-    color: colors.textMuted,
-  },
-  emptyCard: {
-    paddingVertical: 22,
-    paddingHorizontal: 16,
-    alignItems: 'center',
-    gap: 7,
-  },
-  emptyTitle: {
-    fontSize: 13.5,
-    fontFamily: fonts.semiBold,
-    color: colors.ink,
-  },
-  emptySub: {
-    fontSize: 12.5,
-    fontFamily: fonts.medium,
-    color: colors.textMuted,
-    textAlign: 'center',
-  },
-  ctaBtn: {
-    paddingVertical: 14,
-    alignItems: 'center',
-  }
+  actions: { gap: 10 },
+  action: { flexDirection: 'row', alignItems: 'center', gap: 13, padding: 15, overflow: 'hidden' },
+  actionAccent: { position: 'absolute', top: 0, left: 0, right: 0, height: 2 },
+  actionIcon: { width: 44, height: 44, borderRadius: 13, alignItems: 'center', justifyContent: 'center' },
+  actionCopy: { flex: 1, gap: 2 },
+  actionTitle: { fontSize: 14.5, fontFamily: fonts.bold, color: colors.ink },
+  actionBody: { fontSize: 12, lineHeight: 17, fontFamily: fonts.medium, color: colors.textMuted },
+  section: { gap: 10 },
+  sectionHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  sectionTitle: { fontSize: 17, fontFamily: fonts.bold, color: colors.ink, letterSpacing: -0.3 },
+  seeAll: { fontSize: 13, fontFamily: fonts.semiBold, color: colors.blue },
 });

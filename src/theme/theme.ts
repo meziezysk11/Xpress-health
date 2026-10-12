@@ -1,5 +1,5 @@
 /**
- * Design tokens extracted 1:1 from the Xpress Health design source
+ * Design tokens extracted 1:1 from the original design source
  * (design-reference/design-source.html). Do not approximate values.
  */
 

@@ -1,15 +1,21 @@
-import { createStore } from 'zustand/vanilla';
+import { create } from 'zustand';
 
-interface ToastStore {
-  toast: string | null;
-  flash: (message: string) => void;
-  clearToast: () => void;
-  reset: () => void;
+export interface ToastMessage {
+  message: string;
+  kind: 'success' | 'error';
 }
 
-export const toastStore = createStore<ToastStore>((set) => ({
+interface ToastStore {
+  toast: ToastMessage | null;
+  flash: (message: string, kind?: ToastMessage['kind']) => void;
+  clearToast: () => void;
+}
+
+export const useToast = create<ToastStore>((set) => ({
   toast: null,
-  flash: (toast) => set({ toast }),
+  flash: (message, kind = 'success') => set({ toast: { message, kind } }),
   clearToast: () => set({ toast: null }),
-  reset: () => set({ toast: null }),
 }));
+
+export const flash = (message: string, kind?: ToastMessage['kind']) =>
+  useToast.getState().flash(message, kind);

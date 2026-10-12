@@ -1,388 +1,217 @@
-import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import React, { useEffect, useState } from 'react';
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { LinearGradient } from 'expo-linear-gradient';
 
+import { Avatar } from '../components/Avatar';
+import { Button } from '../components/Button';
+import { Card } from '../components/Card';
 import { Icon } from '../components/Icon';
-import { PressableScale } from '../components/PressableScale';
+import { TextField } from '../components/TextField';
+import { FormDataFile, avatarUrl, displayName, initials, roleLabel } from '../api/auth';
+import { useChangePassword, useLogout, useProfile, useUpdateProfile } from '../api/queries';
+import { useAuthStore } from '../state/stores/authStore';
+import { flash } from '../state/stores/toastStore';
 import { colors, fonts, gradient160 } from '../theme/theme';
-import { useApp } from '../state/AppStateContext';
-
-interface DocRow {
-  name: string;
-  status: string;
-  icon: 'check_circle' | 'error' | 'schedule';
-  iconColor: string;
-  subColor: string;
-  ok: boolean;
-}
 
 export function ProfileScreen() {
-  const { state, addOccupationalHealth, signOut } = useApp();
   const insets = useSafeAreaInsets();
+  const user = useAuthStore((s) => s.user);
+  const profile = useProfile();
+  const update = useUpdateProfile();
+  const changePassword = useChangePassword();
+  const logout = useLogout();
 
-  const docs: DocRow[] = [
-    {
-      name: 'NMBI registration',
-      status: 'Valid to 31 Dec 2026',
-      icon: 'check_circle',
-      iconColor: colors.green,
-      subColor: colors.textMuted,
-      ok: true,
-    },
-    {
-      name: 'Manual handling',
-      status: 'Valid to 14 Mar 2027',
-      icon: 'check_circle',
-      iconColor: colors.green,
-      subColor: colors.textMuted,
-      ok: true,
-    },
-    state.ohAdded
-      ? {
-          name: 'Occupational health',
-          status: 'Uploaded — under review',
-          icon: 'schedule' as const,
-          iconColor: colors.blue,
-          subColor: colors.blue,
-          ok: true,
-        }
-      : {
-          name: 'Occupational health',
-          status: 'Missing',
-          icon: 'error' as const,
-          iconColor: colors.red,
-          subColor: colors.red,
-          ok: false,
+  const [details, setDetails] = useState({ firstName: '', lastName: '', phone: '' });
+  const [photo, setPhoto] = useState<{ preview: string; file: FormDataFile } | null>(null);
+  const [pw, setPw] = useState({ current: '', next: '', confirm: '' });
+
+  // Re-seed the form whenever fresh profile data arrives.
+  useEffect(() => {
+    if (user) setDetails({ firstName: user.firstName ?? '', lastName: user.lastName ?? '', phone: user.phone ?? '' });
+  }, [profile.dataUpdatedAt]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const dirty =
+    Boolean(photo) ||
+    details.firstName !== (user?.firstName ?? '') ||
+    details.lastName !== (user?.lastName ?? '') ||
+    details.phone !== (user?.phone ?? '');
+
+  const pickPhoto = async () => {
+    const res = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.8,
+    });
+    if (res.canceled) return;
+    const a = res.assets[0];
+    const name = a.fileName ?? `profile-${Date.now()}.jpg`;
+    setPhoto({ preview: a.uri, file: a.file ?? { uri: a.uri, name, type: a.mimeType ?? 'image/jpeg' } });
+  };
+
+  const saveDetails = () =>
+    update.mutate(
+      { ...details, photo: photo?.file },
+      {
+        onSuccess: () => {
+          setPhoto(null);
+          flash('Profile updated successfully');
         },
-    {
-      name: 'Right to work',
-      status: 'Verified 2 Feb 2026',
-      icon: 'check_circle',
-      iconColor: colors.green,
-      subColor: colors.textMuted,
-      ok: true,
-    },
-  ];
+        onError: (e) => flash(e.message || 'Failed to save profile', 'error'),
+      },
+    );
 
-  const okCount = docs.filter((d) => d.ok).length;
-  const compliancePct = Math.round((okCount / docs.length) * 100);
+  const mismatch = pw.confirm.length > 0 && pw.next !== pw.confirm;
+  const tooShort = pw.next.length > 0 && pw.next.length < 8;
+  const savePassword = () =>
+    changePassword.mutate(pw, {
+      onSuccess: () => {
+        setPw({ current: '', next: '', confirm: '' });
+        flash('Password updated successfully');
+      },
+      onError: (e) => flash(e.message || 'Failed to update password', 'error'),
+    });
 
   return (
-    <View style={[styles.screen, { paddingTop: insets.top }]}>
-      <LinearGradient
-        style={styles.header}
-        start={gradient160.start}
-        end={gradient160.end}
-        colors={['#123A72', '#0B2547']}
-        locations={[0, 1]}>
-        <View style={styles.profileRow}>
-          <View style={styles.avatar}>
-            <Text style={styles.avatarText}>AN</Text>
-          </View>
-          <View style={styles.nameBlock}>
-            <Text style={styles.name}>Aoife Nolan</Text>
-            <Text style={styles.roleText}>Staff Nurse (RGN) · NMBI 148230</Text>
-          </View>
-        </View>
-        <View style={styles.complianceBox}>
-          <View style={styles.complianceRow}>
-            <Text style={styles.complianceLabel}>
-              {okCount} of {docs.length} documents verified
-            </Text>
-            <Text style={styles.compliancePct}>{compliancePct}%</Text>
-          </View>
-          <View style={styles.progressTrack}>
-            <LinearGradient
-              style={[styles.progressFill, { width: `${compliancePct}%` }]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              colors={['#015EB8', '#41B6E5']}
-            />
-          </View>
-        </View>
-      </LinearGradient>
-
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}>
-        <View style={styles.docsTitleRow}>
-          <Text style={styles.docsTitle}>Documents</Text>
-          <Text style={styles.uploadText}>Upload</Text>
-        </View>
-
-        <View style={styles.warningBanner}>
-          <Icon name="warning" size={22} color={colors.berryMid} />
-          <View style={styles.warningCopy}>
-            <Text style={styles.warningTitle}>
-              Garda vetting expires in 12 days
-            </Text>
-            <Text style={styles.warningSub}>
-              Renew now to keep booking shifts
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.docList}>
-          {docs.map((doc, i) => (
-            <View
-              key={doc.name}
-              style={[
-                styles.docRow,
-                i < docs.length - 1 ? styles.docRowBorder : null,
-              ]}>
-              <Icon name={doc.icon} size={20} color={doc.iconColor} />
-              <View style={styles.docCopy}>
-                <Text style={styles.docName}>{doc.name}</Text>
-                <Text style={[styles.docStatus, { color: doc.subColor }]}>
-                  {doc.status}
-                </Text>
-              </View>
-              {!doc.ok ? (
-                <PressableScale
-                  onPress={addOccupationalHealth}
-                  style={styles.addBtn}>
-                  <Text style={styles.addBtnText}>Add</Text>
-                </PressableScale>
-              ) : (
-                <Icon name="chevron_right" size={19} color={colors.textMuted2} />
-              )}
+    <KeyboardAvoidingView
+      style={[styles.screen, { paddingTop: insets.top }]}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.scroll}>
+        <LinearGradient
+          style={styles.header}
+          start={gradient160.start}
+          end={gradient160.end}
+          colors={['#123A72', '#0B2547']}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Change profile photo"
+            onPress={pickPhoto}
+            style={styles.avatarWrap}>
+            <Avatar uri={photo?.preview ?? avatarUrl(user)} initials={initials(user)} size={84} />
+            <View style={styles.cameraBadge}>
+              <Icon name="photo_camera" size={16} color={colors.white} />
             </View>
-          ))}
-        </View>
-
-        <View style={styles.referralCard}>
-          <View style={styles.referralIcon}>
-            <Icon name="group_add" size={22} color={colors.white} />
+          </Pressable>
+          <View style={styles.nameBlock}>
+            <Text style={styles.name}>{displayName(user)}</Text>
+            <Text style={styles.role}>{roleLabel(user).toUpperCase()}</Text>
+            {user?.email ? <Text style={styles.email}>{user.email}</Text> : null}
           </View>
-          <View style={styles.referralCopy}>
-            <Text style={styles.referralTitle}>
-              Refer a colleague, earn €250
-            </Text>
-            <Text style={styles.referralSub}>
-              Paid after their first 10 shifts
-            </Text>
-          </View>
-          <Icon name="chevron_right" size={20} color={colors.onNavyMuted} />
-        </View>
+          {photo && <Text style={styles.photoHint}>New photo will be saved with your changes</Text>}
+        </LinearGradient>
 
-        <PressableScale
-          onPress={signOut}
-          style={styles.signOutBtn}>
-          <Text style={styles.signOutText}>Sign out</Text>
-        </PressableScale>
+        <View style={styles.body}>
+          <Card radius={18} style={styles.card}>
+            <Text style={styles.cardTitle}>Personal information</Text>
+            <View style={styles.row}>
+              <View style={styles.half}>
+                <TextField
+                  label="First name"
+                  value={details.firstName}
+                  onChangeText={(v) => setDetails((d) => ({ ...d, firstName: v }))}
+                />
+              </View>
+              <View style={styles.half}>
+                <TextField
+                  label="Last name"
+                  value={details.lastName}
+                  onChangeText={(v) => setDetails((d) => ({ ...d, lastName: v }))}
+                />
+              </View>
+            </View>
+            <TextField label="Email address" icon="mail" value={user?.email ?? ''} disabled />
+            <TextField
+              label="Phone"
+              icon="call"
+              value={details.phone}
+              onChangeText={(v) => setDetails((d) => ({ ...d, phone: v }))}
+              keyboardType="phone-pad"
+              placeholder="+44 7700 000000"
+            />
+            <Button label="Save changes" onPress={saveDetails} loading={update.isPending} disabled={!dirty} />
+          </Card>
+
+          <Card radius={18} style={styles.card}>
+            <Text style={styles.cardTitle}>Change password</Text>
+            <TextField
+              label="Current password"
+              icon="lock"
+              password
+              value={pw.current}
+              onChangeText={(v) => setPw((p) => ({ ...p, current: v }))}
+              autoCapitalize="none"
+              textContentType="password"
+            />
+            <TextField
+              label="New password"
+              icon="key"
+              password
+              value={pw.next}
+              onChangeText={(v) => setPw((p) => ({ ...p, next: v }))}
+              autoCapitalize="none"
+              textContentType="newPassword"
+              error={tooShort ? 'Use at least 8 characters.' : null}
+            />
+            <TextField
+              label="Confirm new password"
+              icon="key"
+              password
+              value={pw.confirm}
+              onChangeText={(v) => setPw((p) => ({ ...p, confirm: v }))}
+              autoCapitalize="none"
+              textContentType="newPassword"
+              error={mismatch ? 'Passwords do not match.' : null}
+            />
+            <Button
+              label="Update password"
+              variant="outline"
+              onPress={savePassword}
+              loading={changePassword.isPending}
+              disabled={!pw.current || pw.next.length < 8 || pw.next !== pw.confirm}
+            />
+          </Card>
+
+          <Button
+            label="Sign out"
+            icon="logout"
+            variant="outline"
+            onPress={() => logout.mutate()}
+            loading={logout.isPending}
+          />
+        </View>
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    minHeight: 0,
-  },
-  header: {
-    paddingHorizontal: 22,
-    paddingTop: 20,
-    paddingBottom: 22,
-    gap: 17,
-    flexShrink: 0,
-  },
-  profileRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 14,
-  },
-  avatar: {
-    width: 62,
-    height: 62,
-    borderRadius: 31,
-    backgroundColor: colors.sky,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: 0,
-  },
-  avatarText: {
-    fontSize: 21,
-    fontFamily: fonts.bold,
-    color: colors.navy800,
-  },
-  nameBlock: {
-    gap: 3,
-  },
-  name: {
-    fontSize: 20,
-    fontFamily: fonts.bold,
-    letterSpacing: -0.56,
-    color: colors.white,
-  },
-  roleText: {
-    fontSize: 13,
-    fontFamily: fonts.medium,
-    color: colors.onNavyMuted,
-  },
-  complianceBox: {
-    backgroundColor: 'rgba(255,255,255,0.12)',
-    borderRadius: 16,
-    padding: 15,
-    gap: 10,
-  },
-  complianceRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  complianceLabel: {
-    fontSize: 13,
-    fontFamily: fonts.semiBold,
-    color: colors.onNavyLight3,
-  },
-  compliancePct: {
-    fontSize: 13,
-    fontFamily: fonts.bold,
-    color: colors.sky,
-  },
-  progressTrack: {
-    height: 7,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    borderRadius: 4,
-    overflow: 'hidden',
-  },
-  progressFill: {
-    height: 7,
-    borderRadius: 4,
-  },
-  scroll: {
-    flex: 1,
-    minHeight: 0,
-  },
-  scrollContent: {
-    paddingVertical: 18,
-    paddingHorizontal: 22,
-    gap: 13,
-  },
-  docsTitleRow: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
-    justifyContent: 'space-between',
-  },
-  docsTitle: {
-    fontSize: 16,
-    fontFamily: fonts.bold,
-    letterSpacing: -0.16,
-    color: colors.ink,
-  },
-  uploadText: {
-    fontSize: 13,
-    fontFamily: fonts.semiBold,
-    color: colors.blue,
-  },
-  warningBanner: {
-    backgroundColor: colors.pinkBg,
-    borderRadius: 16,
-    padding: 15,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  warningCopy: {
-    flex: 1,
-    gap: 2,
-  },
-  warningTitle: {
-    fontSize: 14,
-    fontFamily: fonts.bold,
-    color: colors.berryDark,
-  },
-  warningSub: {
-    fontSize: 12.5,
-    fontFamily: fonts.medium,
-    color: colors.berryMid,
-  },
-  docList: {
-    backgroundColor: colors.white,
-    borderRadius: 18,
-    overflow: 'hidden',
-    shadowColor: 'rgba(13,45,94,0.14)',
-    shadowOpacity: 1,
-    shadowRadius: 2,
-    shadowOffset: { width: 0, height: 1 },
-  },
-  docRow: {
-    paddingVertical: 14,
-    paddingHorizontal: 15,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  docRowBorder: {
-    borderBottomWidth: 1,
-    borderBottomColor: colors.borderLight,
-  },
-  docCopy: {
-    flex: 1,
-    gap: 1,
-  },
-  docName: {
-    fontSize: 14,
-    fontFamily: fonts.semiBold,
-    color: colors.ink,
-  },
-  docStatus: {
-    fontSize: 12.5,
-    fontFamily: fonts.medium,
-  },
-  addBtn: {
+  screen: { flex: 1, minHeight: 0, backgroundColor: colors.bg },
+  scroll: { paddingBottom: 32 },
+  header: { alignItems: 'center', paddingTop: 28, paddingBottom: 28, paddingHorizontal: 22, gap: 14 },
+  avatarWrap: { borderRadius: 46, borderWidth: 3, borderColor: 'rgba(255,255,255,0.25)' },
+  cameraBadge: {
+    position: 'absolute',
+    right: -2,
+    bottom: -2,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
     backgroundColor: colors.blue,
-    borderRadius: 10,
-    paddingVertical: 9,
-    paddingHorizontal: 15,
-    alignItems: 'center',
-  },
-  addBtnText: {
-    fontSize: 13,
-    fontFamily: fonts.bold,
-    color: colors.white,
-  },
-  referralCard: {
-    backgroundColor: colors.navy800,
-    borderRadius: 18,
-    padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 13,
-  },
-  referralIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    backgroundColor: colors.berry,
+    borderWidth: 2,
+    borderColor: colors.navy900,
     alignItems: 'center',
     justifyContent: 'center',
-    flexShrink: 0,
   },
-  referralCopy: {
-    flex: 1,
-    gap: 2,
-  },
-  referralTitle: {
-    fontSize: 14.5,
-    fontFamily: fonts.bold,
-    color: colors.white,
-  },
-  referralSub: {
-    fontSize: 12.5,
-    fontFamily: fonts.medium,
-    color: colors.onNavyMuted,
-  },
-  signOutBtn: {
-    paddingVertical: 8,
-    alignItems: 'center',
-  },
-  signOutText: {
-    fontSize: 13.5,
-    fontFamily: fonts.semiBold,
-    color: colors.textMuted,
-  },
+  nameBlock: { alignItems: 'center', gap: 3 },
+  name: { fontSize: 22, fontFamily: fonts.bold, color: colors.white, letterSpacing: -0.5 },
+  role: { fontSize: 11, fontFamily: fonts.bold, letterSpacing: 1.6, color: colors.sky },
+  email: { fontSize: 13, fontFamily: fonts.medium, color: colors.onNavyMuted },
+  photoHint: { fontSize: 12, fontFamily: fonts.medium, color: colors.skyLight },
+  body: { padding: 18, gap: 16 },
+  card: { padding: 18, gap: 14 },
+  cardTitle: { fontSize: 16, fontFamily: fonts.bold, color: colors.ink },
+  row: { flexDirection: 'row', gap: 12 },
+  half: { flex: 1 },
 });

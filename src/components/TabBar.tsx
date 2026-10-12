@@ -11,19 +11,18 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PressableScale } from './PressableScale';
 import { colors, fonts } from '../theme/theme';
 import { ICON_GLYPHS } from '../theme/glyphs';
-import { ScreenName } from '../data/model';
-import { useApp } from '../state/AppStateContext';
+import { IconName } from '../theme/glyphs';
+import { TabName, useNavigation } from '../state/stores/navigationStore';
 
-const TABS: { name: ScreenName; icon: 'home' | 'search' | 'calendar_month' | 'receipt_long' | 'person'; label: string }[] = [
-  { name: 'home', icon: 'home', label: 'Home' },
-  { name: 'shifts', icon: 'search', label: 'Shifts' },
-  { name: 'schedule', icon: 'calendar_month', label: 'Schedule' },
-  { name: 'timesheet', icon: 'receipt_long', label: 'Timesheets' },
+const TABS: { name: TabName; icon: IconName; label: string }[] = [
+  { name: 'home', icon: 'home', label: 'Dashboard' },
+  { name: 'jobs', icon: 'work', label: 'Jobs' },
+  { name: 'applications', icon: 'description', label: 'Applications' },
   { name: 'profile', icon: 'person', label: 'Profile' },
 ];
 
 function Tab({ tab, active }: { tab: (typeof TABS)[number]; active: boolean }) {
-  const { go } = useApp();
+  const go = useNavigation((s) => s.go);
   const progress = useSharedValue(active ? 1 : 0);
 
   React.useEffect(() => {
@@ -41,6 +40,9 @@ function Tab({ tab, active }: { tab: (typeof TABS)[number]; active: boolean }) {
   return (
     <PressableScale
       scaleTo={0.94}
+      accessibilityRole="tab"
+      accessibilityLabel={tab.label}
+      accessibilityState={{ selected: active }}
       onPress={() => go(tab.name)}
       style={styles.tab}>
 
@@ -56,7 +58,7 @@ function Tab({ tab, active }: { tab: (typeof TABS)[number]; active: boolean }) {
   );
 }
 
-export function TabBar({ active }: { active: ScreenName }) {
+export function TabBar({ active }: { active: TabName }) {
   const insets = useSafeAreaInsets();
 
   return (
@@ -80,10 +82,11 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
   tab: {
     alignItems: 'center',
+    minWidth: 64,
     gap: 5,
   },
   icon: {

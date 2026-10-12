@@ -1,6 +1,9 @@
 import React from 'react';
 import {
   ImageBackground,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -19,7 +22,9 @@ import Animated, {
 import { Icon } from '../components/Icon';
 import { PressableScale } from '../components/PressableScale';
 import { colors, fonts } from '../theme/theme';
-import { useApp } from '../state/AppStateContext';
+import { Button } from '../components/Button';
+import { TextField } from '../components/TextField';
+import { useLogin } from '../api/queries';
 
 /** The design's floatSlow keyframe for the hero orb. */
 function FloatingOrb() {
@@ -83,106 +88,118 @@ function HeroBackdrop() {
   );
 }
 
-export function SignInScreen() {
-  const { signIn } = useApp();
+export function SignInScreen({ onForgotPassword }: { onForgotPassword: () => void }) {
   const insets = useSafeAreaInsets();
+  const login = useLogin();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const passwordRef = React.useRef<TextInput>(null);
+
+  const canSubmit = email.trim().length > 0 && password.length > 0;
+  const submit = () => {
+    if (!canSubmit || login.isPending) return;
+    login.mutate({ email, password });
+  };
 
   return (
-    <View style={[styles.screen, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
-      <View style={styles.hero}>
-        <HeroBackdrop />
-        <FloatingOrb />
-        <ImageBackground
-          source={require('../../assets/images/hero-care.jpg')}
-          style={StyleSheet.absoluteFill}
-          resizeMode="cover"
-        />
-        <LinearGradient
-          style={StyleSheet.absoluteFill}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 1 }}
-          colors={[
-            'rgba(11,37,71,0.52)',
-            'rgba(11,37,71,0.7)',
-            'rgba(13,45,94,0.96)',
-          ]}
-          locations={[0, 0.5, 1]}
-        />
-
-        {/* Brand row + headline pinned to hero bottom */}
-        <View style={styles.heroContent}>
-          <View style={styles.brandRow}>
-            <View style={styles.brandLogo}>
-              <Icon name="health_and_safety" size={23} color={colors.blue} />
+    <KeyboardAvoidingView
+      style={styles.screen}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <ScrollView
+        bounces={false}
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={[styles.scroll, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
+        <View style={styles.hero}>
+          <HeroBackdrop />
+          <FloatingOrb />
+          <ImageBackground
+            source={require('../../assets/images/hero-care.jpg')}
+            style={StyleSheet.absoluteFill}
+            resizeMode="cover"
+          />
+          <LinearGradient
+            style={StyleSheet.absoluteFill}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 0, y: 1 }}
+            colors={['rgba(11,37,71,0.52)', 'rgba(11,37,71,0.7)', 'rgba(13,45,94,0.96)']}
+            locations={[0, 0.5, 1]}
+          />
+          <View style={styles.heroContent}>
+            <View style={styles.brandRow}>
+              <View style={styles.brandLogo}>
+                <Icon name="health_and_safety" size={23} color={colors.blue} />
+              </View>
+              <Text style={styles.brandName}>Achievers Professionals</Text>
             </View>
-            <Text style={styles.brandName}>Xpress Health</Text>
-          </View>
-          <View style={styles.headlineBlock}>
-            <Text style={styles.headline}>Your shifts, on your terms</Text>
-            <Text style={styles.subheadline}>
-              Nursing and care work across Ireland — paid every Friday.
-            </Text>
-          </View>
-        </View>
-      </View>
-
-      {/* Sign-in sheet */}
-      <View style={styles.sheet}>
-        <View style={styles.field}>
-          <Text style={styles.label}>Email</Text>
-          <View style={styles.inputBox}>
-            <TextInput
-              style={styles.input}
-              defaultValue="aoife.nolan@gmail.com"
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
-          </View>
-        </View>
-        <View style={styles.field}>
-          <Text style={styles.label}>Password</Text>
-          <View style={[styles.inputBox, styles.inputBoxActive]}>
-            <TextInput
-              style={[styles.input, styles.inputPassword]}
-              defaultValue="password1"
-              secureTextEntry
-              textContentType="password"
-            />
-            <Icon name="visibility_off" size={20} color={colors.textMuted} />
+            <View style={styles.headlineBlock}>
+              <Text style={styles.eyebrow}>Candidate portal</Text>
+              <Text style={styles.headline}>Welcome to the Achievers candidate portal</Text>
+              <Text style={styles.subheadline}>
+                Track your job applications, update your profile, and discover matching NHS and
+                private sector roles across the UK.
+              </Text>
+            </View>
           </View>
         </View>
 
-        <View style={styles.rememberRow}>
-          <View style={styles.rememberLeft}>
-            <Icon name="check_box" size={19} color={colors.blue} />
-            <Text style={styles.rememberText}>Keep me signed in</Text>
+        <View style={styles.sheet}>
+          <View style={styles.sheetTitles}>
+            <Text style={styles.sheetTitle}>Candidate sign in</Text>
+            <Text style={styles.sheetSub}>Enter your credentials to access your dashboard.</Text>
           </View>
-          <PressableScale scaleTo={0.96}>
-            <Text style={styles.forgot}>Forgot?</Text>
+
+          {login.error && (
+            <View style={styles.errorBanner} accessibilityLiveRegion="polite">
+              <Icon name="error" size={19} color={colors.red} />
+              <Text style={styles.errorText}>{login.error.message}</Text>
+            </View>
+          )}
+
+          <TextField
+            label="Email address"
+            icon="mail"
+            value={email}
+            onChangeText={setEmail}
+            placeholder="you@example.com"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+            autoComplete="email"
+            textContentType="emailAddress"
+            returnKeyType="next"
+            onSubmitEditing={() => passwordRef.current?.focus()}
+          />
+          <TextField
+            ref={passwordRef}
+            label="Password"
+            icon="lock"
+            password
+            value={password}
+            onChangeText={setPassword}
+            placeholder="••••••••"
+            autoCapitalize="none"
+            autoComplete="password"
+            textContentType="password"
+            returnKeyType="go"
+            onSubmitEditing={submit}
+          />
+
+          <PressableScale scaleTo={0.96} onPress={onForgotPassword} style={styles.forgotWrap}>
+            <Text style={styles.forgot}>Forgot password?</Text>
           </PressableScale>
-        </View>
 
-        <PressableScale
-          onPress={signIn}
-          style={styles.signInBtn}>
-          <Text style={styles.signInText}>Sign in</Text>
-        </PressableScale>
-        <PressableScale
-          onPress={signIn}
-          style={styles.faceIdBtn}>
-          <Icon name="fingerprint" size={20} color={colors.blue} />
-          <Text style={styles.faceIdText}>Use Face ID</Text>
-        </PressableScale>
-
-        <View style={styles.footer}>
-          <View style={styles.divider} />
-          <Text style={styles.registerText}>
-            New here?{' '}
-            <Text style={styles.registerLink}>Register as a nurse or HCA</Text>
-          </Text>
+          <Button
+            label="Sign in"
+            onPress={submit}
+            loading={login.isPending}
+            disabled={!canSubmit}
+          />
+          {login.isPending && (
+            <Text style={styles.hint}>Waking up the server — this can take up to a minute.</Text>
+          )}
         </View>
-      </View>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -191,15 +208,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.navy800,
   },
+  scroll: { flexGrow: 1, backgroundColor: colors.white },
   hero: {
-    height: 330,
+    height: 360,
+    backgroundColor: colors.navy800,
     flexShrink: 0,
   },
   heroContent: {
     position: 'absolute',
     left: 26,
     right: 26,
-    top: 74,
+    top: 40,
     bottom: 32,
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -228,9 +247,16 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: 9,
   },
+  eyebrow: {
+    fontSize: 11,
+    fontFamily: fonts.bold,
+    letterSpacing: 1.6,
+    color: colors.sky,
+    textTransform: 'uppercase',
+  },
   headline: {
-    fontSize: 31,
-    lineHeight: 34.7,
+    fontSize: 27,
+    lineHeight: 31,
     fontFamily: fonts.bold,
     letterSpacing: -1.085,
     color: colors.white,
@@ -249,111 +275,22 @@ const styles = StyleSheet.create({
     marginTop: -26,
     paddingTop: 28,
     paddingHorizontal: 26,
-    paddingBottom: 22,
-    gap: 14,
+    paddingBottom: 28,
+    gap: 16,
   },
-  field: {
-    gap: 7,
-  },
-  label: {
-    fontSize: 13,
-    fontFamily: fonts.semiBold,
-    color: colors.ink,
-  },
-  inputBox: {
-    borderWidth: 1.5,
-    borderColor: colors.border,
-    backgroundColor: colors.inputBg,
-    borderRadius: 13,
-    paddingHorizontal: 15,
-  },
-  inputBoxActive: {
-    borderColor: colors.blue,
-    backgroundColor: colors.white,
+  sheetTitles: { gap: 4 },
+  sheetTitle: { fontSize: 21, fontFamily: fonts.bold, color: colors.ink, letterSpacing: -0.5 },
+  sheetSub: { fontSize: 13.5, fontFamily: fonts.medium, color: colors.textMuted },
+  errorBanner: {
     flexDirection: 'row',
-    alignItems: 'center',
+    gap: 10,
+    alignItems: 'flex-start',
+    backgroundColor: '#FDECEA',
+    borderRadius: 12,
+    padding: 12,
   },
-  input: {
-    fontSize: 15,
-    fontFamily: fonts.medium,
-    color: colors.ink,
-    paddingVertical: 15,
-    paddingHorizontal: 0,
-  },
-  inputPassword: {
-    flex: 1,
-    letterSpacing: 3,
-  },
-  rememberRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  rememberLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  rememberText: {
-    fontSize: 13,
-    fontFamily: fonts.medium,
-    color: colors.textMuted,
-  },
-  forgot: {
-    fontSize: 13,
-    fontFamily: fonts.semiBold,
-    color: colors.berry,
-  },
-  signInBtn: {
-    backgroundColor: colors.blue,
-    borderRadius: 14,
-    paddingVertical: 18,
-    alignItems: 'center',
-  },
-  signInText: {
-    fontSize: 16,
-    fontFamily: fonts.bold,
-    color: colors.white,
-  },
-  faceIdBtn: {
-    borderWidth: 1.5,
-    borderColor: colors.border,
-    borderRadius: 14,
-    paddingVertical: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 9,
-  },
-  faceIdText: {
-    fontSize: 15,
-    fontFamily: fonts.semiBold,
-    color: colors.ink,
-  },
-  footer: {
-    marginTop: 'auto',
-    gap: 12,
-  },
-  divider: {
-    height: 1,
-    backgroundColor: colors.borderLight,
-  },
-  registerText: {
-    textAlign: 'center',
-    fontSize: 13,
-    fontFamily: fonts.medium,
-    color: colors.textMuted,
-  },
-  registerLink: {
-    color: colors.berry,
-    fontFamily: fonts.bold,
-  },
-  homeIndicator: {
-    height: 5,
-    width: 126,
-    borderRadius: 3,
-    backgroundColor: colors.indicator,
-    marginHorizontal: 'auto',
-    marginTop: 2,
-  },
+  errorText: { flex: 1, fontSize: 13, lineHeight: 18, fontFamily: fonts.semiBold, color: colors.red },
+  forgotWrap: { alignSelf: 'flex-end', marginTop: -4 },
+  forgot: { fontSize: 13, fontFamily: fonts.semiBold, color: colors.berry },
+  hint: { textAlign: 'center', fontSize: 12, fontFamily: fonts.medium, color: colors.textMuted },
 });

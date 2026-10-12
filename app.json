@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "express-health",
-    "slug": "express-health",
+    "name": "Achievers Professionals",
+    "slug": "achievers-professionals",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
-    "scheme": "expresshealth",
+    "scheme": "achieversprofessionals",
     "backgroundColor": "#F4F7FB",
     "splash": {
       "backgroundColor": "#0D2D5E",
@@ -13,10 +13,10 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.xpresshealth.app"
+      "bundleIdentifier": "com.achieversprofessionals.app"
     },
     "android": {
-      "package": "com.xpresshealth.app",
+      "package": "com.achieversprofessionals.app",
       "edgeToEdgeEnabled": false
     },
     "web": {
@@ -24,12 +24,21 @@
       "output": "single"
     },
     "plugins": [
-      "expo-font"
+      "expo-font",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow access to your photos so you can set a profile picture.",
+          "cameraPermission": false,
+          "microphonePermission": false
+        }
+      ]
     ],
     "extra": {
       "eas": {
-        "projectId": "6accfb3f-f106-479f-98ba-debba9c27dd3"
+        "projectId": "92be100c-6e42-49e1-8f43-a62e2919d7c9"
       }
-    }
+    },
+    "owner": "chimezie"
   }
 }

@@ -1,8 +1,9 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, BackHandler, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar as NativeStatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
+import { QueryClientProvider } from '@tanstack/react-query';
 import {
   Inter_400Regular,
   Inter_500Medium,
@@ -12,32 +13,33 @@ import {
 } from '@expo-google-fonts/inter';
 import { MaterialSymbolsRounded_500Medium } from '@expo-google-fonts/material-symbols-rounded';
 
-import { AppProvider, useApp } from './state/AppStateContext';
+import { queryClient, useAppFocusRefetch } from './api/queries';
+import { useAuthStore } from './state/stores/authStore';
+import { Route, currentRoute, routeTab, useNavigation } from './state/stores/navigationStore';
+import { useToast } from './state/stores/toastStore';
 import { SignInScreen } from './screens/SignInScreen';
+import { ForgotPasswordScreen } from './screens/ForgotPasswordScreen';
 import { WelcomeScreen } from './screens/WelcomeScreen';
 import { HomeScreen } from './screens/HomeScreen';
-import { ShiftsScreen } from './screens/ShiftsScreen';
-import { ShiftDetailScreen } from './screens/ShiftDetailScreen';
-import { ScheduleScreen } from './screens/ScheduleScreen';
-import { TimesheetScreen } from './screens/TimesheetScreen';
-import { ActivityScreen } from './screens/ActivityScreen';
+import { JobsScreen } from './screens/JobsScreen';
+import { JobDetailScreen } from './screens/JobDetailScreen';
+import { ApplyScreen } from './screens/ApplyScreen';
+import { ApplicationsScreen } from './screens/ApplicationsScreen';
 import { ProfileScreen } from './screens/ProfileScreen';
 import { TabBar } from './components/TabBar';
 import { Toast } from './components/Toast';
 import { colors } from './theme/theme';
 
-function renderScreen(screen: string) {
-  switch (screen) {
-    case 'shifts':
-      return <ShiftsScreen />;
-    case 'detail':
-      return <ShiftDetailScreen />;
-    case 'schedule':
-      return <ScheduleScreen />;
-    case 'timesheet':
-      return <TimesheetScreen />;
-    case 'activity':
-      return <ActivityScreen />;
+function renderRoute(route: Route) {
+  switch (route.name) {
+    case 'jobs':
+      return <JobsScreen />;
+    case 'job':
+      return <JobDetailScreen jobId={route.jobId} />;
+    case 'apply':
+      return <ApplyScreen key={route.jobId} jobId={route.jobId} />;
+    case 'applications':
+      return <ApplicationsScreen />;
     case 'profile':
       return <ProfileScreen />;
     default:
@@ -45,24 +47,68 @@ function renderScreen(screen: string) {
   }
 }
 
+function SignedOut() {
+  const welcomeSeen = useAuthStore((s) => s.welcomeSeen);
+  const markWelcomeSeen = useAuthStore((s) => s.markWelcomeSeen);
+  const [forgot, setForgot] = useState(false);
+
+  useEffect(() => {
+    if (!forgot) return;
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+      setForgot(false);
+      return true;
+    });
+    return () => sub.remove();
+  }, [forgot]);
+
+  if (!welcomeSeen) return <WelcomeScreen onComplete={markWelcomeSeen} />;
+  if (forgot) return <ForgotPasswordScreen onDone={() => setForgot(false)} />;
+  return <SignInScreen onForgotPassword={() => setForgot(true)} />;
+}
+
+function SignedIn() {
+  const stack = useNavigation((s) => s.stack);
+  const route = currentRoute(stack);
+
+  useEffect(() => {
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => useNavigation.getState().back());
+    return () => sub.remove();
+  }, []);
+
+  // Tab bar only on the four root screens; pushed screens own their footer.
+  const showTabs = stack.length === 1;
+  return (
+    <>
+      <View style={styles.content}>{renderRoute(route)}</View>
+      {showTabs && <TabBar active={routeTab(stack)} />}
+    </>
+  );
+}
+
 function AppShell() {
-  const { state } = useApp();
-  const [welcomeComplete, setWelcomeComplete] = React.useState(false);
+  const hydrated = useAuthStore((s) => s.hydrated);
+  const signedIn = useAuthStore((s) => Boolean(s.token));
+  const toast = useToast((s) => s.toast);
+  useAppFocusRefetch();
 
-  if (!state.signedIn) {
-    if (!welcomeComplete) {
-      return <WelcomeScreen onComplete={() => setWelcomeComplete(true)} />;
-    }
-    return <SignInScreen />;
+  useEffect(() => {
+    if (!toast) return;
+    const timer = setTimeout(() => useToast.getState().clearToast(), 2800);
+    return () => clearTimeout(timer);
+  }, [toast]);
+
+  if (!hydrated) {
+    return (
+      <View style={[styles.app, styles.center]}>
+        <ActivityIndicator color={colors.blue} />
+      </View>
+    );
   }
-
-  const showTabs = state.screen !== 'detail';
 
   return (
     <View style={styles.app}>
-      <View style={styles.content}>{renderScreen(state.screen)}</View>
-      {showTabs && <TabBar active={state.screen} />}
-      {state.toast != null && <Toast message={state.toast} />}
+      {signedIn ? <SignedIn /> : <SignedOut />}
+      {toast != null && <Toast toast={toast} />}
     </View>
   );
 }
@@ -83,14 +129,10 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <NativeStatusBar
-        style="auto"
-        backgroundColor={colors.navy800}
-        translucent={false}
-      />
-      <AppProvider>
+      <NativeStatusBar style="light" backgroundColor={colors.navy800} translucent={false} />
+      <QueryClientProvider client={queryClient}>
         <AppShell />
-      </AppProvider>
+      </QueryClientProvider>
     </SafeAreaProvider>
   );
 }
@@ -100,6 +142,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.bg,
   },
+  center: { alignItems: 'center', justifyContent: 'center' },
   content: {
     flex: 1,
     minHeight: 0,

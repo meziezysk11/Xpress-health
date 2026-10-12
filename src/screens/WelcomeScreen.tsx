@@ -8,9 +8,9 @@ import { IconName } from '../theme/glyphs';
 import { colors, fonts } from '../theme/theme';
 
 const slides: { eyebrow: string; title: string; description: string; icon: IconName; cardTitle: string; cardDetail: string; badge: string; accent: string; image: ImageSourcePropType }[] = [
-  { image: require('../../assets/images/welcome-shifts.jpg'), eyebrow: 'WORK THAT FITS YOUR LIFE', title: 'Your next shift.\nYour choice.', description: 'Discover nursing and care shifts across Ireland. Find the location, hours and rate that work for you.', icon: 'search', cardTitle: 'Find your perfect shift', cardDetail: 'Explore shifts • Filter by location • Book', badge: 'More choice. More flexibility.', accent: colors.sky },
-  { image: require('../../assets/images/welcome-schedule.jpg'), eyebrow: 'MAKE ROOM FOR WHAT MATTERS', title: 'A little planning.\nA lot more freedom.', description: 'Keep your booked shifts and availability together. See what’s coming up and plan your week with confidence.', icon: 'calendar_month', cardTitle: 'Your week, organised', cardDetail: 'Upcoming shifts • Availability • Schedule', badge: 'Everything in one place.', accent: colors.sky },
-  { image: require('../../assets/images/welcome-timesheets.jpg'), eyebrow: 'FROM CLOCK IN TO PAYDAY', title: 'Great care.\nLess paperwork.', description: 'Clock in and out, submit your timesheets and keep track of your earnings. Stay on top of every shift.', icon: 'receipt_long', cardTitle: 'Every hour accounted for', cardDetail: 'Clock in • Timesheets • Earnings', badge: 'Focus on the care you give.', accent: colors.berry },
+  { image: require('../../assets/images/welcome-shifts.jpg'), eyebrow: 'HEALTHCARE CAREERS', title: 'Your next role.\nYour choice.', description: 'Discover NHS and private sector vacancies across the UK, Ireland and beyond — filtered by specialism, band and location.', icon: 'work', cardTitle: 'Find roles that fit', cardDetail: 'Browse jobs • Filter by specialism • Location', badge: 'NHS & private sector roles.', accent: colors.sky },
+  { image: require('../../assets/images/welcome-schedule.jpg'), eyebrow: 'APPLY IN MINUTES', title: 'Upload your CV.\nWe do the rest.', description: 'Apply directly from your phone. A specialist consultant reviews every application and gets back to you within 1–2 working days.', icon: 'upload_file', cardTitle: 'One-tap applications', cardDetail: 'Upload CV • Add notes • Submit', badge: 'Matched by specialists.', accent: colors.sky },
+  { image: require('../../assets/images/welcome-timesheets.jpg'), eyebrow: 'STAY IN THE LOOP', title: 'Every application.\nOne place.', description: 'Track the status of every role you have applied for and keep your candidate profile up to date.', icon: 'description', cardTitle: 'Track your progress', cardDetail: 'Applications • Status • Profile', badge: 'Your career, organised.', accent: colors.berry },
 ];
 
 function FeatureArtwork({ slide, reducedMotion }: { slide: typeof slides[number]; reducedMotion: boolean }) {
@@ -72,7 +72,7 @@ export function WelcomeScreen({ onComplete }: { onComplete: () => void }) {
   return (
     <LinearGradient colors={[colors.navy800, colors.navy950]} style={[styles.screen, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
       <View style={styles.header}>
-        <View style={styles.brand}><View style={styles.logo}><Icon name="health_and_safety" size={23} color={colors.blue} /></View><Text style={styles.brandName}>Xpress Health</Text></View>
+        <View style={styles.brand}><View style={styles.logo}><Icon name="health_and_safety" size={23} color={colors.blue} /></View><Text style={styles.brandName}>Achievers Professionals</Text></View>
         <Pressable accessibilityRole="button" accessibilityLabel="Skip welcome and go to sign in" onPress={onComplete} style={styles.skip}><Text style={styles.skipText}>Skip intro</Text><Icon name="arrow_forward" size={17} color={colors.onNavyLight} /></Pressable>
       </View>
       <ScrollView contentContainerStyle={styles.body} showsVerticalScrollIndicator={false}>

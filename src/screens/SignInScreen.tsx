@@ -93,6 +93,7 @@ export function SignInScreen({ onForgotPassword }: { onForgotPassword: () => voi
   const login = useLogin();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const scrollRef = React.useRef<ScrollView>(null);
   const passwordRef = React.useRef<TextInput>(null);
 
   const canSubmit = email.trim().length > 0 && password.length > 0;
@@ -104,8 +105,9 @@ export function SignInScreen({ onForgotPassword }: { onForgotPassword: () => voi
   return (
     <KeyboardAvoidingView
       style={styles.screen}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView
+        ref={scrollRef}
         bounces={false}
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={[styles.scroll, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
@@ -181,6 +183,12 @@ export function SignInScreen({ onForgotPassword }: { onForgotPassword: () => voi
             autoComplete="password"
             textContentType="password"
             returnKeyType="go"
+            onFocus={(event) =>
+              scrollRef.current?.scrollResponderScrollNativeHandleToKeyboard(
+                event.nativeEvent.target,
+                200,
+              )
+            }
             onSubmitEditing={submit}
           />
 
@@ -206,7 +214,7 @@ export function SignInScreen({ onForgotPassword }: { onForgotPassword: () => voi
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: colors.navy800,
+    height: 1000
   },
   scroll: { flexGrow: 1, backgroundColor: colors.white },
   hero: {
